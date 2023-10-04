@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import userReducer from "./Redux-toolkit/slice/authSlice";
+import userReducer from "./authSlice";
 import createSagaMiddleware from "redux-saga";
-import { rootSaga } from "./Redux-toolkit/saga/index";
+import { rootSaga } from "../saga/index";
 
 import {
   persistStore,
@@ -39,5 +39,5 @@ export const store = configureStore({
     }).concat(sagaMiddleware),
 });
 
-export let persistor = persistStore(store);
+export const persistor = persistStore(store);
 sagaMiddleware.run(rootSaga);

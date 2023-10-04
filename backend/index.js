@@ -13,6 +13,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
+app.use("/uploads", express.static(__dirname + "/public/assets/images"));
 
 //routes
 app.get("/", (req, res) => {
@@ -20,7 +21,6 @@ app.get("/", (req, res) => {
 });
 app.use("/api/v1/auth", authRoute);
 app.use("/api/v1/upload", uploadRoute);
-
 // //middlewares
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleware);

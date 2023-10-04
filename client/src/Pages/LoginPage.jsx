@@ -124,20 +124,16 @@ const ErrorMsg = styled.p`
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { user, error } = useSelector((state) => state.user);
+  const { user, error, isSuccesfullLogIn } = useSelector((state) => state.user);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    if (error === null && user) {
-      navigate("/homepage");
-    }
-  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = { email, password };
     dispatch({ type: LOGIN_USER, payload: formData });
+    console.log(test);
+    console.log(isSuccesfullLogIn);
   };
 
   return (
