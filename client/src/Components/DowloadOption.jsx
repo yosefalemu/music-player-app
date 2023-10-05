@@ -38,15 +38,15 @@ const DowloadOption = () => {
     <Container>
       <Wrapper>
         <ItemContainer>
-          <WindowIcon style={{ fontSize: "70px", color: "#1775bb" }} />
+          <WindowIcon style={{ fontSize: "70px", color: "#0078D4" }} />
           <Description>Dowload with window</Description>
         </ItemContainer>
         <ItemContainer>
-          <AppleIcon style={{ fontSize: "70px", color: "gray" }} />
+          <AppleIcon style={{ fontSize: "70px", color: "#8E8E93" }} />
           <Description>Dowload with Mac</Description>
         </ItemContainer>
         <ItemContainer>
-          <ComputerIcon style={{ fontSize: "70px", color: "blue" }} />
+          <ComputerIcon style={{ fontSize: "70px", color: "#54C22C" }} />
           <Description>Dowload with linux</Description>
         </ItemContainer>
       </Wrapper>
