@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import UserNavBar from "./UserNavBar";
+import PauseCircleIcon from "@mui/icons-material/PauseCircle";
+import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 
 const SingleMusicMiddleContainer = styled.div`
   flex: 2;
   width: 100%;
-  background-color: #222222;
+  border-radius: 10px;
   height: 85vh;
   margin: 8px 7px;
-  border-radius: 10px;
   position: relative;
 `;
+const SingleMusicMiddleTopContainer = styled.div`
+  background: linear-gradient(to bottom, #ff0000, #660000 38%, #111111);
+  border-radius: 10px 10px 0px 0px;
+  height: 45vh;
+`;
+// first element styling start here
 const SingleMusicMiddleFirst = styled.div`
   width: 100%;
   position: sticky;
@@ -18,15 +25,314 @@ const SingleMusicMiddleFirst = styled.div`
   left: 0;
   right: 0;
   z-index: 2;
-  background-color: #333333;
+`;
+// second element styling begin
+const SingleMusicMiddleSecond = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+`;
+const SingleMusicMiddleSecondImage = styled.img`
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 30px;
+`;
+const SingleMusicMiddleSecondTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SingleMusicMiddleSecondText = styled.h1`
+  font-size: 60px;
+  color: white;
+  margin: 0px;
+`;
+const SingleMusicMiddleSecondViewers = styled.p`
+  color: white;
+  font-size: 24px;
+`;
+// styling of bottom container begin
+const SingleMusicMiddleBottomContainer = styled.div`
+  background: linear-gradient(to bottom, #660000, #222222);
+  height: 45vh;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: gray #f1f1f1;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 5px;
+  }
+`;
+//styling of third element begin
+const SingleMusicMiddleThird = styled.div`
+  display: flex;
+  padding: 10px 25px;
+  align-items: center;
+`;
+const SingleMusicMiddleFollowButton = styled.button`
+  width: fit-content;
+  margin-left: 30px;
+  padding: 10px 25px;
+  color: white;
+  font-weight: 700;
+  font-size: 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  background-color: transparent;
+  border: 0.3px solid #20c997;
+  &:hover {
+    font-size: 24px;
+  }
+`;
+//styling of the fourth element begin here
+const SingleMusicMiddleFourth = styled.div`
+  padding: 10px 15px;
+  margin-bottom: 55px;
+`;
+const SingleMusicMiddleFourthTitle = styled.h1`
+  color: white;
+`;
+const SingleMusicFourthEachItem = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  border-radius: 10px;
+  position: relative;
+
+  &:hover {
+    background-color: #333333;
+    .play-icon {
+      display: block;
+    }
+
+    .number {
+      display: none;
+    }
+  }
+`;
+const SingleMusicMiddleFourthImage = styled.img`
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  margin-right: 15px;
+`;
+const SingleMusicMiddleFourthName = styled.h3`
+  color: white;
+  font-size: 24px;
+  margin-right: 200px;
+`;
+const SingleMusicMiddleFourthViews = styled.h3`
+  color: white;
+  margin-right: 70px;
+`;
+const SingleMusicMiddleFourthLength = styled.h3`
+  color: white;
+`;
+const SingleMusicFourthPlayNumber = styled.div`
+  display: flex;
+  align-items: center;
+  font-size: 45px;
+  margin-right: 15px;
+  color: #20c997;
+  cursor: pointer;
+  transition: font-size 0.2s ease-in-out;
+
+  .play-icon {
+    display: none;
+  }
+
+  &:hover {
+    font-size: 55px;
+
+    .number {
+      display: none;
+    }
+
+    .play-icon {
+      display: block;
+    }
+  }
 `;
 
 const SingleMusicMiddle = () => {
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const [hovering, setHovering] = useState(false);
   return (
     <SingleMusicMiddleContainer>
-      <SingleMusicMiddleFirst>
-        <UserNavBar />
-      </SingleMusicMiddleFirst>
+      <SingleMusicMiddleTopContainer>
+        <SingleMusicMiddleFirst>
+          <UserNavBar />
+        </SingleMusicMiddleFirst>
+        <SingleMusicMiddleSecond>
+          <SingleMusicMiddleSecondImage src={`${PF}neway.jpg`} />
+          <SingleMusicMiddleSecondTextContainer>
+            <SingleMusicMiddleSecondText>
+              Neway Debebe
+            </SingleMusicMiddleSecondText>
+            <SingleMusicMiddleSecondViewers>
+              31,673 monthly listeners
+            </SingleMusicMiddleSecondViewers>
+          </SingleMusicMiddleSecondTextContainer>
+        </SingleMusicMiddleSecond>
+      </SingleMusicMiddleTopContainer>
+      <SingleMusicMiddleBottomContainer>
+        <SingleMusicMiddleThird>
+          <PauseCircleIcon
+            style={{
+              fontSize: "65px",
+              margin: "0px",
+              color: "#20c997",
+              cursor: "pointer",
+              transition: "font-size 0.2s ease-in-out",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.fontSize = "75px";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.fontSize = "65px";
+            }}
+          />
+          <SingleMusicMiddleFollowButton>Follow</SingleMusicMiddleFollowButton>
+        </SingleMusicMiddleThird>
+        <SingleMusicMiddleFourth>
+          <SingleMusicMiddleFourthTitle>
+            Music List
+          </SingleMusicMiddleFourthTitle>
+          <SingleMusicFourthEachItem
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+          >
+            <SingleMusicFourthPlayNumber>
+              <span className={`number ${hovering ? "hidden" : ""}`}>1</span>
+              <PlayCircleFilledWhiteIcon
+                className={`play-icon ${hovering ? "" : "hidden"}`}
+                style={{
+                  fontSize: "45px",
+                  marginRight: "15px",
+                  color: "#20c997",
+                  cursor: "pointer",
+                }}
+              />
+            </SingleMusicFourthPlayNumber>
+            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
+            <SingleMusicMiddleFourthName>
+              Neway Debebe
+            </SingleMusicMiddleFourthName>
+            <SingleMusicMiddleFourthViews>
+              456,345 views
+            </SingleMusicMiddleFourthViews>
+            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
+          </SingleMusicFourthEachItem>
+          <SingleMusicFourthEachItem
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+          >
+            <SingleMusicFourthPlayNumber>
+              <span className={`number ${hovering ? "hidden" : ""}`}>2</span>
+              <PlayCircleFilledWhiteIcon
+                className={`play-icon ${hovering ? "" : "hidden"}`}
+                style={{
+                  fontSize: "45px",
+                  marginRight: "15px",
+                  color: "#20c997",
+                  cursor: "pointer",
+                }}
+              />
+            </SingleMusicFourthPlayNumber>
+            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
+            <SingleMusicMiddleFourthName>
+              Neway Debebe
+            </SingleMusicMiddleFourthName>
+            <SingleMusicMiddleFourthViews>
+              456,345 views
+            </SingleMusicMiddleFourthViews>
+            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
+          </SingleMusicFourthEachItem>
+          <SingleMusicFourthEachItem
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+          >
+            <SingleMusicFourthPlayNumber>
+              <span className={`number ${hovering ? "hidden" : ""}`}>3</span>
+              <PlayCircleFilledWhiteIcon
+                className={`play-icon ${hovering ? "" : "hidden"}`}
+                style={{
+                  fontSize: "45px",
+                  marginRight: "15px",
+                  color: "#20c997",
+                  cursor: "pointer",
+                }}
+              />
+            </SingleMusicFourthPlayNumber>
+            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
+            <SingleMusicMiddleFourthName>
+              Neway Debebe
+            </SingleMusicMiddleFourthName>
+            <SingleMusicMiddleFourthViews>
+              456,345 views
+            </SingleMusicMiddleFourthViews>
+            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
+          </SingleMusicFourthEachItem>
+          <SingleMusicFourthEachItem
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+          >
+            <SingleMusicFourthPlayNumber>
+              <span className={`number ${hovering ? "hidden" : ""}`}>4</span>
+              <PlayCircleFilledWhiteIcon
+                className={`play-icon ${hovering ? "" : "hidden"}`}
+                style={{
+                  fontSize: "45px",
+                  marginRight: "15px",
+                  color: "#20c997",
+                  cursor: "pointer",
+                }}
+              />
+            </SingleMusicFourthPlayNumber>
+            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
+            <SingleMusicMiddleFourthName>
+              Neway Debebe
+            </SingleMusicMiddleFourthName>
+            <SingleMusicMiddleFourthViews>
+              456,345 views
+            </SingleMusicMiddleFourthViews>
+            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
+          </SingleMusicFourthEachItem>
+          <SingleMusicFourthEachItem
+            onMouseEnter={() => setHovering(true)}
+            onMouseLeave={() => setHovering(false)}
+          >
+            <SingleMusicFourthPlayNumber>
+              <span className={`number ${hovering ? "hidden" : ""}`}>5</span>
+              <PlayCircleFilledWhiteIcon
+                className={`play-icon ${hovering ? "" : "hidden"}`}
+                style={{
+                  fontSize: "45px",
+                  marginRight: "15px",
+                  color: "#20c997",
+                  cursor: "pointer",
+                }}
+              />
+            </SingleMusicFourthPlayNumber>
+            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
+            <SingleMusicMiddleFourthName>
+              Neway Debebe
+            </SingleMusicMiddleFourthName>
+            <SingleMusicMiddleFourthViews>
+              456,345 views
+            </SingleMusicMiddleFourthViews>
+            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
+          </SingleMusicFourthEachItem>
+        </SingleMusicMiddleFourth>
+      </SingleMusicMiddleBottomContainer>
     </SingleMusicMiddleContainer>
   );
 };
