@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -92,16 +93,18 @@ const Button = styled.button`
   color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  background: #0074d9;
+  background: #1a9988;
   border: none;
   border-radius: 3px;
   outline: 0;
   cursor: pointer;
   margin-top: 0.6rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-out;
+  transition: opacity 0.2s, background-color 0.2s;
+
   &:hover {
-    background: #0056b3;
+    opacity: 0.9;
+    background-color: #1a9988;
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
@@ -149,6 +152,7 @@ const SignInParagraph = styled.p`
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstname: "",
     middlename: "",
@@ -168,6 +172,7 @@ const SignUpPage = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch({ type: REGISTER_USER, payload: formData });
+    navigate("/maindisplay");
   };
 
   const uploadFileHandler = async (e) => {
@@ -257,18 +262,18 @@ const SignUpPage = () => {
           </InputContainer>
 
           <Button>SignUp</Button>
-          <LoginLink to="/">Have an account? Login</LoginLink>
+          <LoginLink to="/login">Have an account? Login</LoginLink>
           <SignInOptionContainer>
             <SignInOption>
-              <GoogleIcon fontSize="large" />
+              <GoogleIcon fontSize="large" style={{ color: "#20c997" }} />
               <SignInParagraph>Sign up with Google</SignInParagraph>
             </SignInOption>
             <SignInOption>
-              <FacebookIcon fontSize="large" />
+              <FacebookIcon fontSize="large" style={{ color: "#20c997" }} />
               <SignInParagraph>Sign up with Facebook</SignInParagraph>
             </SignInOption>
             <SignInOption>
-              <LinkedInIcon fontSize="large" />
+              <LinkedInIcon fontSize="large" style={{ color: "#20c997" }} />
               <SignInParagraph>Sign up with LinkedIn</SignInParagraph>
             </SignInOption>
           </SignInOptionContainer>

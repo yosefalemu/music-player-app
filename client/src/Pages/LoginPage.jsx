@@ -76,7 +76,7 @@ const Button = styled.button`
   color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  background: #0074d9;
+  background: #20c997;
   border: none;
   border-radius: 3px;
   outline: 0;
@@ -84,8 +84,12 @@ const Button = styled.button`
   margin-top: 0.6rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-out;
+  cursor: pointer;
+  transition: opacity 0.2s, background-color 0.2s;
+
   &:hover {
-    background: #0056b3;
+    opacity: 0.9;
+    background-color: #1a9988;
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
@@ -130,10 +134,11 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = { email, password };
-    dispatch({ type: LOGIN_USER, payload: formData });
-    console.log(test);
-    console.log(isSuccesfullLogIn);
+    // const formData = { email, password };
+    // dispatch({ type: LOGIN_USER, payload: formData });
+    // console.log(test);
+    // console.log(isSuccesfullLogIn);
+    navigate("/maindisplay");
   };
 
   return (

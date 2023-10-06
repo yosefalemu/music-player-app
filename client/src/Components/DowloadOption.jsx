@@ -14,6 +14,13 @@ const Container = styled.div`
 `;
 const Wrapper = styled.div`
   width: 80%;
+`;
+const Title = styled.h1`
+  margin-bottom: 100px;
+  text-align: center;
+  position: relative;
+`;
+const ItemMainContainer = styled.div`
   display: flex;
   justify-content: space-evenly;
 `;
@@ -30,6 +37,16 @@ const ItemContainer = styled.div`
     border-radius: 10px;
   }
 `;
+const Underline = styled.div`
+  width: 150px;
+  height: 5px;
+  background-color: #20c997;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  border-radius: 15px;
+  transform: translateX(-50%);
+`;
 const Description = styled.p`
   font-size: 22px;
 `;
@@ -37,18 +54,24 @@ const DowloadOption = () => {
   return (
     <Container>
       <Wrapper>
-        <ItemContainer>
-          <WindowIcon style={{ fontSize: "70px", color: "#0078D4" }} />
-          <Description>Dowload with window</Description>
-        </ItemContainer>
-        <ItemContainer>
-          <AppleIcon style={{ fontSize: "70px", color: "#8E8E93" }} />
-          <Description>Dowload with Mac</Description>
-        </ItemContainer>
-        <ItemContainer>
-          <ComputerIcon style={{ fontSize: "70px", color: "#54C22C" }} />
-          <Description>Dowload with linux</Description>
-        </ItemContainer>
+        <Title>
+          Dowload the app and get the service offline
+          <Underline />
+        </Title>
+        <ItemMainContainer>
+          <ItemContainer>
+            <WindowIcon style={{ fontSize: "70px", color: "#0078D4" }} />
+            <Description>Dowload with window</Description>
+          </ItemContainer>
+          <ItemContainer>
+            <AppleIcon style={{ fontSize: "70px", color: "#8E8E93" }} />
+            <Description>Dowload with Mac</Description>
+          </ItemContainer>
+          <ItemContainer>
+            <ComputerIcon style={{ fontSize: "70px", color: "#54C22C" }} />
+            <Description>Dowload with linux</Description>
+          </ItemContainer>
+        </ItemMainContainer>
       </Wrapper>
     </Container>
   );
