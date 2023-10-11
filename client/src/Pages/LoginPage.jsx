@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
-import { Link } from "react-router-dom";
-import { LOGIN_USER } from "../Redux-toolkit/types/auth";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const jump = keyframes`
   from {
@@ -26,6 +23,14 @@ const GlobalStyle = createGlobalStyle`
   body, html, #root {
     height: 100%;
   }
+`;
+
+const LogInContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Wrapper = styled.section`
@@ -67,11 +72,13 @@ const Input = styled.input`
   &:focus,
   &:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
   }
 `;
 
 const Button = styled.button`
   max-width: 100%;
+  width: 100%;
   padding: 11px 13px;
   color: #fff;
   font-weight: 600;
@@ -84,8 +91,6 @@ const Button = styled.button`
   margin-top: 0.6rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-out;
-  cursor: pointer;
-  transition: opacity 0.2s, background-color 0.2s;
 
   &:hover {
     opacity: 0.9;
@@ -93,6 +98,11 @@ const Button = styled.button`
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+`;
+
 const ForgotPasswordLink = styled(Link)`
   font-size: 16px;
   font-weight: 500;
@@ -106,6 +116,7 @@ const ForgotPasswordLink = styled(Link)`
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
+
 const RegisterLink = styled(Link)`
   font-size: 16px;
   font-weight: 500;
@@ -114,61 +125,43 @@ const RegisterLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   text-align: right;
+
   &:hover {
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
 
-const ErrorMsg = styled.p`
-  color: red;
-  text-align: center;
-  margin-top: 10px;
-`;
-
 const Login = () => {
-  const dispatch = useDispatch();
+  console.log("Login page");
   const navigate = useNavigate();
-  const { user, error, isSuccesfullLogIn } = useSelector((state) => state.user);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    // const formData = { email, password };
-    // dispatch({ type: LOGIN_USER, payload: formData });
-    // console.log(test);
-    // console.log(isSuccesfullLogIn);
     navigate("/maindisplay");
   };
 
   return (
     <>
       <GlobalStyle />
-      <Wrapper>
-        <Title>LOGIN</Title>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button>Login</Button>
-          <ForgotPasswordLink Link to="/forgetpassword">
-            Forget password?
-          </ForgotPasswordLink>
-          <RegisterLink Link to="/signup">
-            Don't have an account? Signup
-          </RegisterLink>
-          {error && <ErrorMsg>{error.msg}</ErrorMsg>}
-        </Form>
-      </Wrapper>
+      <LogInContainer>
+        <Wrapper>
+          <Title>LOGIN</Title>
+          <Form onSubmit={handleSubmit}>
+            <Input type="email" name="email" placeholder="Email" disabled />
+            <Input
+              type="password"
+              name="password"
+              placeholder="Password"
+              disabled
+            />
+            <Button>Login</Button>
+            <ForgotPasswordLink>Forget password?</ForgotPasswordLink>
+            <RegisterLink to="/signup">
+              Don't have an account? Signup
+            </RegisterLink>
+          </Form>
+        </Wrapper>
+      </LogInContainer>
     </>
   );
 };

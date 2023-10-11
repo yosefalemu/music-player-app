@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -56,6 +56,7 @@ const AuthenticationText = styled.div`
 `;
 
 const NavBar = () => {
+  console.log("nav bar");
   return (
     <Container>
       <Wrapper>
@@ -63,10 +64,10 @@ const NavBar = () => {
           <CompanyName>ADDISMUSIC</CompanyName>
         </Left>
         <Right>
-          <AuthenticationContainer Link to="/login">
+          <AuthenticationContainer to="/login">
             <AuthenticationText>LOGIN</AuthenticationText>
           </AuthenticationContainer>
-          <AuthenticationContainer Link to="/signup">
+          <AuthenticationContainer to="/signup">
             <AuthenticationText>SIGNUP</AuthenticationText>
           </AuthenticationContainer>
         </Right>

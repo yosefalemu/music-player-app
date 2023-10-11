@@ -5,9 +5,6 @@ import { useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import { useDispatch } from "react-redux";
-import { REGISTER_USER } from "../Redux-toolkit/types/auth";
-import axios from "axios";
 
 const jump = keyframes`
   from {
@@ -82,8 +79,9 @@ const Input = styled.input`
   transition: all 0.3s ease-out;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.1), 0 1px 1px rgba(0, 0, 0, 0.1);
   :focus,
-  :hover {
+  &:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
+    cursor: not-allowed;
   }
 `;
 
@@ -151,49 +149,11 @@ const SignInParagraph = styled.p`
 `;
 
 const SignUpPage = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstname: "",
-    middlename: "",
-    lastname: "",
-    username: "",
-    email: "",
-    password: "",
-    avatar: "",
-  });
-
-  const handleInputChange = (e) => {
-    e.preventDefault();
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+  console.log("sign up page");
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({ type: REGISTER_USER, payload: formData });
     navigate("/maindisplay");
-  };
-
-  const uploadFileHandler = async (e) => {
-    e.preventDefault();
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const formDataCopy = { ...formData };
-    formDataCopy.avatar = file;
-
-    const formDataToUpload = new FormData();
-    formDataToUpload.append("avatar", file);
-
-    const { data } = await axios.post(
-      "http://localhost:5000/api/v1/upload",
-      formDataToUpload
-    );
-
-    formDataCopy.avatar = data;
-
-    setFormData(formDataCopy);
   };
 
   return (
@@ -204,61 +164,31 @@ const SignUpPage = () => {
         <Form onSubmit={handleSubmit}>
           <InputContainer>
             <Label>First Name</Label>
-            <Input
-              name="firstname"
-              type="text"
-              value={formData.firstname}
-              onChange={handleInputChange}
-            />
+            <Input name="firstname" type="text" disabled />
           </InputContainer>
           <InputContainer>
             <Label>Middle Name</Label>
-            <Input
-              name="middlename"
-              type="text"
-              value={formData.middlename}
-              onChange={handleInputChange}
-            />
+            <Input name="middlename" type="text" disabled />
           </InputContainer>
           <InputContainer>
             <Label>Last Name</Label>
-            <Input
-              name="lastname"
-              type="text"
-              value={formData.lastname}
-              onChange={handleInputChange}
-            />
+            <Input name="lastname" type="text" disabled />
           </InputContainer>
           <InputContainer>
             <Label>User Name</Label>
-            <Input
-              name="username"
-              type="text"
-              value={formData.username}
-              onChange={handleInputChange}
-            />
+            <Input name="username" type="text" disabled />
           </InputContainer>
           <InputContainer>
             <Label>Email</Label>
-            <Input
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-            />
+            <Input name="email" type="email" disabled />
           </InputContainer>
           <InputContainer>
             <Label>Password</Label>
-            <Input
-              name="password"
-              type="password"
-              value={formData.password}
-              onChange={handleInputChange}
-            />
+            <Input name="password" type="password" disabled />
           </InputContainer>
           <InputContainer>
             <Label>Avatar</Label>
-            <Input name="avatar" type="file" onChange={uploadFileHandler} />
+            <Input name="avatar" type="file" disabled />
           </InputContainer>
 
           <Button>SignUp</Button>

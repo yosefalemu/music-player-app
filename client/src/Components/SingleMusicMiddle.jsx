@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import UserNavBar from "./UserNavBar";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
-import PlayCircleFilledWhiteIcon from "@mui/icons-material/PlayCircleFilledWhite";
 
 const SingleMusicMiddleContainer = styled.div`
-  flex: 2;
+  flex: 4;
   width: 100%;
   border-radius: 10px;
   height: 85vh;
@@ -163,8 +162,8 @@ const SingleMusicFourthPlayNumber = styled.div`
 `;
 
 const SingleMusicMiddle = () => {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-  const [hovering, setHovering] = useState(false);
+  console.log("single music middle");
+
   return (
     <SingleMusicMiddleContainer>
       <SingleMusicMiddleTopContainer>
@@ -172,13 +171,13 @@ const SingleMusicMiddle = () => {
           <UserNavBar />
         </SingleMusicMiddleFirst>
         <SingleMusicMiddleSecond>
-          <SingleMusicMiddleSecondImage src={`${PF}neway.jpg`} />
+          <SingleMusicMiddleSecondImage />
           <SingleMusicMiddleSecondTextContainer>
             <SingleMusicMiddleSecondText>
-              Neway Debebe
+              Artist Name
             </SingleMusicMiddleSecondText>
             <SingleMusicMiddleSecondViewers>
-              31,673 monthly listeners
+              Album Title
             </SingleMusicMiddleSecondViewers>
           </SingleMusicMiddleSecondTextContainer>
         </SingleMusicMiddleSecond>
@@ -202,136 +201,18 @@ const SingleMusicMiddle = () => {
           />
           <SingleMusicMiddleFollowButton>Follow</SingleMusicMiddleFollowButton>
         </SingleMusicMiddleThird>
-        <SingleMusicMiddleFourth>
-          <SingleMusicMiddleFourthTitle>
-            Music List
-          </SingleMusicMiddleFourthTitle>
-          <SingleMusicFourthEachItem
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-          >
-            <SingleMusicFourthPlayNumber>
-              <span className={`number ${hovering ? "hidden" : ""}`}>1</span>
-              <PlayCircleFilledWhiteIcon
-                className={`play-icon ${hovering ? "" : "hidden"}`}
-                style={{
-                  fontSize: "45px",
-                  marginRight: "15px",
-                  color: "#20c997",
-                  cursor: "pointer",
-                }}
-              />
-            </SingleMusicFourthPlayNumber>
-            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
-            <SingleMusicMiddleFourthName>
-              Neway Debebe
-            </SingleMusicMiddleFourthName>
-            <SingleMusicMiddleFourthViews>
-              456,345 views
-            </SingleMusicMiddleFourthViews>
-            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
-          </SingleMusicFourthEachItem>
-          <SingleMusicFourthEachItem
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-          >
-            <SingleMusicFourthPlayNumber>
-              <span className={`number ${hovering ? "hidden" : ""}`}>2</span>
-              <PlayCircleFilledWhiteIcon
-                className={`play-icon ${hovering ? "" : "hidden"}`}
-                style={{
-                  fontSize: "45px",
-                  marginRight: "15px",
-                  color: "#20c997",
-                  cursor: "pointer",
-                }}
-              />
-            </SingleMusicFourthPlayNumber>
-            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
-            <SingleMusicMiddleFourthName>
-              Neway Debebe
-            </SingleMusicMiddleFourthName>
-            <SingleMusicMiddleFourthViews>
-              456,345 views
-            </SingleMusicMiddleFourthViews>
-            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
-          </SingleMusicFourthEachItem>
-          <SingleMusicFourthEachItem
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-          >
-            <SingleMusicFourthPlayNumber>
-              <span className={`number ${hovering ? "hidden" : ""}`}>3</span>
-              <PlayCircleFilledWhiteIcon
-                className={`play-icon ${hovering ? "" : "hidden"}`}
-                style={{
-                  fontSize: "45px",
-                  marginRight: "15px",
-                  color: "#20c997",
-                  cursor: "pointer",
-                }}
-              />
-            </SingleMusicFourthPlayNumber>
-            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
-            <SingleMusicMiddleFourthName>
-              Neway Debebe
-            </SingleMusicMiddleFourthName>
-            <SingleMusicMiddleFourthViews>
-              456,345 views
-            </SingleMusicMiddleFourthViews>
-            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
-          </SingleMusicFourthEachItem>
-          <SingleMusicFourthEachItem
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-          >
-            <SingleMusicFourthPlayNumber>
-              <span className={`number ${hovering ? "hidden" : ""}`}>4</span>
-              <PlayCircleFilledWhiteIcon
-                className={`play-icon ${hovering ? "" : "hidden"}`}
-                style={{
-                  fontSize: "45px",
-                  marginRight: "15px",
-                  color: "#20c997",
-                  cursor: "pointer",
-                }}
-              />
-            </SingleMusicFourthPlayNumber>
-            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
-            <SingleMusicMiddleFourthName>
-              Neway Debebe
-            </SingleMusicMiddleFourthName>
-            <SingleMusicMiddleFourthViews>
-              456,345 views
-            </SingleMusicMiddleFourthViews>
-            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
-          </SingleMusicFourthEachItem>
-          <SingleMusicFourthEachItem
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
-          >
-            <SingleMusicFourthPlayNumber>
-              <span className={`number ${hovering ? "hidden" : ""}`}>5</span>
-              <PlayCircleFilledWhiteIcon
-                className={`play-icon ${hovering ? "" : "hidden"}`}
-                style={{
-                  fontSize: "45px",
-                  marginRight: "15px",
-                  color: "#20c997",
-                  cursor: "pointer",
-                }}
-              />
-            </SingleMusicFourthPlayNumber>
-            <SingleMusicMiddleFourthImage src={`${PF}neway.jpg`} />
-            <SingleMusicMiddleFourthName>
-              Neway Debebe
-            </SingleMusicMiddleFourthName>
-            <SingleMusicMiddleFourthViews>
-              456,345 views
-            </SingleMusicMiddleFourthViews>
-            <SingleMusicMiddleFourthLength>4:34</SingleMusicMiddleFourthLength>
-          </SingleMusicFourthEachItem>
-        </SingleMusicMiddleFourth>
+        {/* {Array.isArray(albumTracks) ? (
+          <SingleMusicMiddleFourth>
+            <SingleMusicMiddleFourthTitle>
+              Music List
+            </SingleMusicMiddleFourthTitle>
+            {albumTracks.map((track) => (
+              <SingleMusicMiddleList track={track} key={track} />
+            ))}
+          </SingleMusicMiddleFourth>
+        ) : (
+          <div>Album Tracks is a string, not an array.</div>
+        )} */}
       </SingleMusicMiddleBottomContainer>
     </SingleMusicMiddleContainer>
   );

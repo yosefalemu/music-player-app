@@ -26,6 +26,7 @@ const MainDisplayBottom = styled.div`
   z-index: 2;
 `;
 const SingleMusicPage = () => {
+  console.log("single music page");
   return (
     <MainDisplayContainer>
       <MainDisplayWrapper>

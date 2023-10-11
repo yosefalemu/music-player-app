@@ -30,8 +30,8 @@ const TopRightSecond = styled.div`
   margin: 15px 0px;
 `;
 const TopRightSecondImage = styled.img`
-  width: 400px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   object-fit: cover;
   border-radius: 15px;
 `;
@@ -41,7 +41,8 @@ const TopRightThird = styled.div`
   display: flex;
   align-items: center;
   padding: 5px 15px;
-  height: 10vh;
+  height: fit-content;
+  padding: 30px 20px;
   border-radius: 10px;
   margin-bottom: 15px;
 `;
@@ -104,6 +105,7 @@ const TopRightFourthTitle = styled.p`
 
 const MainDisplayTopRight = () => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  console.log("main display top right");
   return (
     <MainDisplayTopRightContainer>
       <MainDisplayTopRightTop>

@@ -8,7 +8,7 @@ import EastIcon from "@mui/icons-material/East";
 import ListIcon from "@mui/icons-material/List";
 
 const MainDisplayTopLeftContainer = styled.div`
-  flex: 1;
+  flex: 2;
   height: 85vh;
   margin: 8px 7px;
   border-radius: 10px;
@@ -42,7 +42,7 @@ const MainDisplayTopLeftHomeText = styled.h1`
 const MainDisplayTopLeftSearchText = styled.h1`
   margin: 0px;
   font-size: 24px;
-  color: ${(props) => (props.isSearchHovered ? "white" : "#555555")};
+  color: ${(props) => (props.issearchhovered === "true" ? "white" : "#555555")};
 `;
 const MainDisplayTopLeftBottom = styled.div`
   height: 65vh;
@@ -77,7 +77,7 @@ const BottomFirstLeft = styled.div`
 const BottomFirstRight = styled.div``;
 const BottomFirstText = styled.h3`
   margin: 0px;
-  color: ${(props) => (props.isHovered ? "white" : "#555555")};
+  color: ${(props) => (props.ishovered === "true" ? "white" : "#555555")};
 `;
 const BottomSecond = styled.div`
   display: flex;
@@ -127,7 +127,8 @@ const BottomThirdSearchInput = styled.input`
   border-radius: 7px;
   background-color: #333333;
   color: #666666;
-  display: ${(props) => (props.searchIconVisible ? "block" : "none")};
+  display: ${(props) =>
+    props.searchiconvisible === "false" ? "block" : "none"};
   &:focus {
     outline: none;
   }
@@ -141,7 +142,9 @@ const BottomThirdRight = styled.div`
 const BottomThirdRightText = styled.h3`
   font-size: 18px;
   cursor: pointer;
-  color: ${(props) => (props.isRecentSearchHovered ? "white" : "#555555")};
+  margin-right: 0px;
+  color: ${(props) =>
+    props.isrecentsearchhovered === "true" ? "white" : "#555555"};
 `;
 const BottomFourth = styled.div`
   display: flex;
@@ -184,10 +187,11 @@ const BottomFourthRightDescription = styled.p`
 `;
 
 const MainDisplayTopLeft = () => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [isSearchHovered, setIsSearchHovered] = useState(false);
-  const [isRecentSearchHovered, setIsRecentSearchHovered] = useState(false);
-  const [searchIconVisible, setSearchIconVisible] = useState(false);
+  console.log("Main display top left");
+  const [ishovered, setIsHovered] = useState(false);
+  const [issearchhovered, setIsSearchHovered] = useState(false);
+  const [isrecentsearchhovered, setIsRecentSearchHovered] = useState(false);
+  const [searchiconvisible, setSearchIconVisible] = useState(false);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
 
   const handleMouseEnter = () => {
@@ -210,7 +214,7 @@ const MainDisplayTopLeft = () => {
     setIsRecentSearchHovered(false);
   };
   const handleSearchIconClick = () => {
-    setSearchIconVisible(!searchIconVisible);
+    setSearchIconVisible(!searchiconvisible);
   };
   return (
     <MainDisplayTopLeftContainer>
@@ -229,11 +233,13 @@ const MainDisplayTopLeft = () => {
             style={{
               fontSize: "40px",
               marginRight: "15px",
-              color: isSearchHovered ? "white" : "#555555",
+              color: issearchhovered ? "white" : "#555555",
               transition: "color 0.3s",
             }}
           />
-          <MainDisplayTopLeftSearchText isSearchHovered={isSearchHovered}>
+          <MainDisplayTopLeftSearchText
+            issearchhovered={issearchhovered ? "true" : "false"}
+          >
             Search
           </MainDisplayTopLeftSearchText>
         </MainDisplayTopLeftSearchItem>
@@ -249,11 +255,11 @@ const MainDisplayTopLeft = () => {
                 style={{
                   fontSize: "40px",
                   marginRight: "15px",
-                  color: isHovered ? "white" : "#555555",
+                  color: ishovered ? "white" : "#555555",
                   transition: "color 0.3s",
                 }}
               />
-              <BottomFirstText isHovered={isHovered}>
+              <BottomFirstText ishovered={ishovered ? "true" : "false"}>
                 Your Library
               </BottomFirstText>
             </BottomFirstLeft>
@@ -299,7 +305,7 @@ const MainDisplayTopLeft = () => {
                 onClick={handleSearchIconClick}
               />
               <BottomThirdSearchInput
-                searchIconVisible={searchIconVisible}
+                searchiconvisible={searchiconvisible ? "true " : "false"}
                 placeholder="Search your list"
               />
             </BottomThridSearchInputContainer>
@@ -308,14 +314,14 @@ const MainDisplayTopLeft = () => {
               onMouseLeave={handleRecentSerachMouseLeave}
             >
               <BottomThirdRightText
-                isRecentSearchHovered={isRecentSearchHovered}
+                isrecentsearchhovered={isrecentsearchhovered ? "true" : "false"}
               >
                 Recents
               </BottomThirdRightText>
               <ListIcon
                 style={{
                   fontSize: "30px",
-                  color: isRecentSearchHovered ? "white" : "#555555",
+                  color: isrecentsearchhovered ? "white" : "#555555",
                   transition: "color 0.3s",
                 }}
               />

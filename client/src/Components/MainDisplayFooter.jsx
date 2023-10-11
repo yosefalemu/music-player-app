@@ -67,6 +67,7 @@ const MainDisplayFooterRight = styled.div`
 `;
 
 const MainDisplayFooter = () => {
+  console.log("Main display footer");
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const imageUri = `${PF}zeritu.jpg`;
   return (

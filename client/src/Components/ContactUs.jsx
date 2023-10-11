@@ -185,8 +185,8 @@ const DeveloperLink = styled(Link)`
   color: #616161;
 `;
 const CopyRightText = styled.p``;
-const AtContainer = styled.p``;
-const DeveloperName = styled.p``;
+const AtContainer = styled.span``;
+const DeveloperName = styled.span``;
 
 const ContactOverLay = styled.div`
   background-color: rgba(0, 0, 0, 0.1);
@@ -334,7 +334,7 @@ const ContactUs = () => {
         <ContactOverLay>Contact Us</ContactOverLay>
         <CopyRightContainer>
           <CopyRightText>
-            <DeveloperLink Link to="https://github.com/yosefalemu">
+            <DeveloperLink to="https://github.com/yosefalemu">
               <AtContainer>@</AtContainer>
               <GitHubIcon style={{ fontSize: "15px" }} />
               <DeveloperName> Yosef Alemu Mengstie</DeveloperName>

@@ -41,6 +41,7 @@ const UserNavBarRightImage = styled.img`
   margin-right: 30px;
 `;
 const UserNavBar = () => {
+  console.log("user nav bar");
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   return (
     <UserNavBarContainer>

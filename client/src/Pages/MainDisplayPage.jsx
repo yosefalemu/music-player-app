@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import MainDisplayFooter from "../Components/MainDisplayFooter";
 import MainDisplayTopLeft from "../Components/MainDisplayTopLeft";
 import MainDisplayTopMiddle from "../Components/MainDisplayTopMiddle";
@@ -27,6 +28,8 @@ const MainDisplayBottom = styled.div`
 `;
 
 const MainDisplayPage = () => {
+  console.log(" main display page");
+
   return (
     <MainDisplayContainer>
       <MainDisplayWrapper>

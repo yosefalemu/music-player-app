@@ -1,31 +1,21 @@
 require("dotenv").config();
-require("express-async-errors");
 const express = require("express");
-const app = express();
+const bodyParser = require("body-parser");
 const connectDB = require("./Db/connect");
-const notFoundMiddleWare = require("./middlewares/not-found");
-const errorHandlerMiddleware = require("./middlewares/error-handler");
-const authenticateUser = require("./middlewares/authenticate");
-const authRoute = require("./routes/auth");
-const uploadRoute = require("./routes/upload");
-
 const cors = require("cors");
+const trackRouter = require("./routes/track");
+const albumRouter = require("./routes/album");
 
+const app = express();
 app.use(cors());
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/uploads", express.static(__dirname + "/public/assets/images"));
 
-//routes
-app.get("/", (req, res) => {
-  res.send("test");
-});
-app.use("/api/v1/auth", authRoute);
-app.use("/api/v1/upload", uploadRoute);
-// //middlewares
-app.use(notFoundMiddleWare);
-app.use(errorHandlerMiddleware);
+app.use("/api/v1/track", trackRouter);
+app.use("/api/v1/album", albumRouter);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const start = async () => {
   await connectDB(process.env.MONGO_URI);
   app.listen(port, () => console.log(`server is listening on port ${port}`));
