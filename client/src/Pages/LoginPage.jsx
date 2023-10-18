@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes, createGlobalStyle } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { LOGIN_USER_START } from "../Redux-toolkit/types/userType";
+import { useSelector } from "react-redux";
+import ClipLoader from "react-spinners/ClipLoader";
+import { removeUserError } from "../Redux-toolkit/slice/userSlice";
 
 const jump = keyframes`
   from {
@@ -11,58 +16,43 @@ const jump = keyframes`
   }
 `;
 
-const GlobalStyle = createGlobalStyle`
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    background: #FDF9F3;
-    font-family: 'Arial', sans-serif;
-  }
-
-  body, html, #root {
-    height: 100%;
-  }
-`;
-
 const LogInContainer = styled.div`
-  height: 100vh;
+  background: #111111;
+  font-family: "Arial", sans-serif;
   width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
 const Wrapper = styled.section`
+  width: 30%;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
   flex-direction: column;
 `;
 
 const Title = styled.h1`
   font-weight: normal;
-  color: #333;
+  color: #fff;
   text-align: center;
 `;
 
 const Form = styled.form`
-  margin: 0 auto;
   width: 100%;
-  max-width: 414px;
-  padding: 1.3rem;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
 `;
-
+const InputContainer = styled.div`
+  margin-bottom: 18px;
+  width: 100%;
+`;
 const Input = styled.input`
-  max-width: 100%;
+  width: calc(100% - 26px);
   padding: 11px 13px;
   background: #f9f9fa;
   color: #333;
-  margin-bottom: 0.9rem;
   border-radius: 4px;
   outline: 0;
   border: 1px solid rgba(245, 245, 245, 0.7);
@@ -72,18 +62,16 @@ const Input = styled.input`
   &:focus,
   &:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
-    cursor: not-allowed;
   }
 `;
 
 const Button = styled.button`
-  max-width: 100%;
   width: 100%;
   padding: 11px 13px;
   color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  background: #20c997;
+  background: #666666;
   border: none;
   border-radius: 3px;
   outline: 0;
@@ -94,19 +82,15 @@ const Button = styled.button`
 
   &:hover {
     opacity: 0.9;
-    background-color: #1a9988;
+    background-color: #555555;
     animation: ${jump} 0.2s ease-out forwards;
   }
-`;
-
-const StyledLink = styled(Link)`
-  text-decoration: none;
 `;
 
 const ForgotPasswordLink = styled(Link)`
   font-size: 16px;
   font-weight: 500;
-  color: #0074d9;
+  color: #fff;
   margin-top: 15px;
   text-decoration: none;
   cursor: pointer;
@@ -120,7 +104,7 @@ const ForgotPasswordLink = styled(Link)`
 const RegisterLink = styled(Link)`
   font-size: 16px;
   font-weight: 500;
-  color: #0074d9;
+  color: #fff;
   margin-top: 15px;
   text-decoration: none;
   cursor: pointer;
@@ -130,39 +114,82 @@ const RegisterLink = styled(Link)`
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
+const ErrorComponent = styled.div`
+  background-color: red;
+  color: white;
+  font-size: 24px;
+  padding: 5px 15px;
+  margin-bottom: 30px;
+`;
+const LoadingComponent = styled.div`
+  text-align: center;
+`;
 
 const Login = () => {
   console.log("Login page");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitClicked, setSubmitClicked] = useState(false);
+  useEffect(() => {
+    dispatch(removeUserError());
+    setSubmitClicked(false);
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/maindisplay");
+    const user = { email, password };
+    dispatch({ type: LOGIN_USER_START, user });
+    setSubmitClicked(true);
   };
+  const { loadingUser, errorUser } = useSelector((state) => state.user);
+
+  if (submitClicked && !loadingUser && !errorUser) {
+    navigate("/maindisplay");
+  }
 
   return (
-    <>
-      <GlobalStyle />
-      <LogInContainer>
-        <Wrapper>
-          <Title>LOGIN</Title>
-          <Form onSubmit={handleSubmit}>
-            <Input type="email" name="email" placeholder="Email" disabled />
+    <LogInContainer>
+      <Wrapper>
+        <Title>LOGIN</Title>
+        {errorUser && <ErrorComponent>{errorUser}</ErrorComponent>}
+        {loadingUser && (
+          <LoadingComponent>
+            <ClipLoader
+              color={"#36d7b7"}
+              loading={loadingUser}
+              size={70}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </LoadingComponent>
+        )}
+        <Form onSubmit={handleSubmit}>
+          <InputContainer>
+            <Input
+              type="email"
+              name="email"
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </InputContainer>
+          <InputContainer>
             <Input
               type="password"
               name="password"
               placeholder="Password"
-              disabled
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <Button>Login</Button>
-            <ForgotPasswordLink>Forget password?</ForgotPasswordLink>
-            <RegisterLink to="/signup">
-              Don't have an account? Signup
-            </RegisterLink>
-          </Form>
-        </Wrapper>
-      </LogInContainer>
-    </>
+          </InputContainer>
+          <Button>Login</Button>
+          <ForgotPasswordLink>Forget password?</ForgotPasswordLink>
+          <RegisterLink to="/signup">
+            Don't have an account? Signup
+          </RegisterLink>
+        </Form>
+      </Wrapper>
+    </LogInContainer>
   );
 };
 

@@ -2,14 +2,15 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 
 const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-const backgroundImageUrl = `${PF}background1.jpg`;
+const imageUrl = PF + "images/";
+const backgroundImageUrl = `${imageUrl}background1.jpg`;
 
 const Container = styled.div`
   background-image: url(${backgroundImageUrl});
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  height: calc(100vh - 66px);
+  height: calc(95vh - 66px);
   position: relative;
 `;
 
@@ -19,7 +20,7 @@ const BackgroundOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: calc(100vh - 66px);
+  height: calc(95vh - 66px);
 `;
 
 const Wrapper = styled.div`
@@ -52,12 +53,14 @@ const WellCome = styled.p`
   color: white;
   font-weight: 800;
   margin: 0;
+  font-family: "Arial", sans-serif;
 `;
 
 const MovableText = styled.p`
   font-size: 54px;
   color: white;
   font-weight: 800;
+  font-family: "Arial", sans-serif;
   margin: 0;
   display: inline;
   & span {

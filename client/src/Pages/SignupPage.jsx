@@ -1,54 +1,53 @@
-import React, { useState } from "react";
-import styled, { keyframes, createGlobalStyle } from "styled-components";
+import React, { useState, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import { useDispatch, useSelector } from "react-redux";
+import { UPLOAD_IMAGE_START } from "../Redux-toolkit/types/uploadType";
+import { CREATE_USER_START } from "../Redux-toolkit/types/userType";
+import ClipLoader from "react-spinners/ClipLoader";
+import { removeUserError } from "../Redux-toolkit/slice/userSlice";
+import { removeUploadError } from "../Redux-toolkit/slice/uploadSlice";
 
 const jump = keyframes`
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-3px);
-  }
+0%, 20%, 50%, 80%, 100% {
+  transform: translateY(0);
+}
+40% {
+  transform: translateY(-15px);
+}
+60% {
+  transform: translateY(-10px);
+}
 `;
 
-const GlobalStyle = createGlobalStyle`
-  * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    background: #FDF9F3;
-    font-family: 'Arial', sans-serif;
-  }
-
-  body, html, #root {
-    height: 100%;
-  }
-`;
-
-const Wrapper = styled.section`
+const SignUpContainer = styled.div`
+  background: #111111;
+  font-family: "Arial", sans-serif;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  width: 100%;
+`;
+
+const Wrapper = styled.section`
+  width: 30%;
+  display: flex;
   flex-direction: column;
 `;
 
 const Title = styled.h1`
   font-weight: normal;
-  color: #333;
+  color: #fff;
   text-align: center;
 `;
 
 const Form = styled.form`
   margin: 0 auto;
-  width: 100%;
-  max-width: 514px;
-  padding: 1.3rem;
   display: flex;
   flex-direction: column;
 `;
@@ -56,18 +55,17 @@ const Form = styled.form`
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
-  width: 100%;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 const Label = styled.label`
   flex: 1;
   font-size: 22px;
+  color: #fff;
 `;
 
 const Input = styled.input`
   flex: 2;
-  max-width: 100%;
   height: 2rem;
   background: #f9f9fa;
   padding: 0 13px;
@@ -81,17 +79,15 @@ const Input = styled.input`
   :focus,
   &:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.15), 0 1px 5px rgba(0, 0, 0, 0.1);
-    cursor: not-allowed;
   }
 `;
 
 const Button = styled.button`
-  max-width: 100%;
   padding: 11px 13px;
   color: #fff;
   font-weight: 600;
   text-transform: uppercase;
-  background: #1a9988;
+  background: #666666;
   border: none;
   border-radius: 3px;
   outline: 0;
@@ -102,7 +98,7 @@ const Button = styled.button`
 
   &:hover {
     opacity: 0.9;
-    background-color: #1a9988;
+    background-color: #555555;
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
@@ -110,7 +106,7 @@ const Button = styled.button`
 const LoginLink = styled(Link)`
   font-size: 18px;
   font-weight: 500;
-  color: #0074d9;
+  color: #fff;
   margin-top: 15px;
   text-decoration: none;
   cursor: pointer;
@@ -136,80 +132,167 @@ const SignInOption = styled.div`
   border-radius: 10px;
   transition: all 0.5s ease-out;
   &:hover {
-    border: 2px solid green;
+    border: 2px solid white;
     animation: ${jump} 0.2s ease-out forwards;
   }
 `;
 
 const SignInParagraph = styled.p`
-  color: #0056b3;
+  color: #fff;
   text-align: center;
   font-size: 18px;
   margin-top: 5px;
 `;
+const ErrorComponent = styled.div`
+  background-color: red;
+  color: white;
+  font-size: 24px;
+  padding: 5px 15px;
+  margin-bottom: 30px;
+`;
+const LoadingComponent = styled.div`
+  text-align: center;
+`;
+const EmailSentComponent = styled.div`
+  background-color: #1a9988;
+  color: white;
+  font-size: 18px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+const EmailSentText = styled.p`
+  margin: 0px;
+`;
 
 const SignUpPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   console.log("sign up page");
+  const [name, setName] = useState("");
+  const [username, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [submitClicked, setSubmitClicked] = useState(false);
+  const [isEmailSent, setIsEmailSent] = useState(false);
+
+  useEffect(() => {
+    dispatch(removeUserError());
+    dispatch(removeUploadError());
+  }, []);
+
+  const { loadingUser, errorUser } = useSelector((state) => state.user);
+  const { loadingUploadingImage, errorImage, image } = useSelector(
+    (state) => state.upload
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/maindisplay");
+    const user = { name, username, email, password, avatar: image };
+    dispatch({ type: CREATE_USER_START, user });
+    setSubmitClicked(true);
   };
 
+  const uploadProfile = async (e) => {
+    e.preventDefault();
+    const file = e.target.files[0];
+    if (!file) {
+      return;
+    }
+    const formData = new FormData();
+    formData.append("image", file);
+    const sendImage = formData.get("image");
+    dispatch({ type: UPLOAD_IMAGE_START, sendImage });
+  };
+
+  useEffect(() => {
+    if (submitClicked && !errorUser && !loadingUser) {
+      setIsEmailSent(true);
+    }
+  }, [submitClicked, errorUser, loadingUser]);
+
   return (
-    <>
-      <GlobalStyle />
+    <SignUpContainer>
       <Wrapper>
         <Title>SIGNUP</Title>
+        {errorImage && <ErrorComponent>{errorImage}</ErrorComponent>}
+        {errorUser && <ErrorComponent>{errorUser}</ErrorComponent>}
+        {(loadingUploadingImage || loadingUser) && (
+          <LoadingComponent>
+            <ClipLoader
+              color={"#36d7b7"}
+              loadingUser={loadingUser}
+              size={70}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            />
+          </LoadingComponent>
+        )}
         <Form onSubmit={handleSubmit}>
           <InputContainer>
-            <Label>First Name</Label>
-            <Input name="firstname" type="text" disabled />
-          </InputContainer>
-          <InputContainer>
-            <Label>Middle Name</Label>
-            <Input name="middlename" type="text" disabled />
-          </InputContainer>
-          <InputContainer>
-            <Label>Last Name</Label>
-            <Input name="lastname" type="text" disabled />
+            <Label>Name</Label>
+            <Input
+              name="name"
+              type="text"
+              onChange={(e) => setName(e.target.value)}
+            />
           </InputContainer>
           <InputContainer>
             <Label>User Name</Label>
-            <Input name="username" type="text" disabled />
+            <Input
+              name="username"
+              type="text"
+              onChange={(e) => setUserName(e.target.value)}
+            />
           </InputContainer>
           <InputContainer>
             <Label>Email</Label>
-            <Input name="email" type="email" disabled />
+            <Input
+              name="email"
+              type="email"
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </InputContainer>
           <InputContainer>
             <Label>Password</Label>
-            <Input name="password" type="password" disabled />
+            <Input
+              name="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
           </InputContainer>
           <InputContainer>
             <Label>Avatar</Label>
-            <Input name="avatar" type="file" disabled />
+            <Input name="image" type="file" onChange={uploadProfile} />
           </InputContainer>
 
           <Button>SignUp</Button>
           <LoginLink to="/login">Have an account? Login</LoginLink>
           <SignInOptionContainer>
             <SignInOption>
-              <GoogleIcon fontSize="large" style={{ color: "#20c997" }} />
+              <GoogleIcon fontSize="large" style={{ color: "#4285F4" }} />
               <SignInParagraph>Sign up with Google</SignInParagraph>
             </SignInOption>
             <SignInOption>
-              <FacebookIcon fontSize="large" style={{ color: "#20c997" }} />
+              <FacebookIcon fontSize="large" style={{ color: " #1877F2" }} />
               <SignInParagraph>Sign up with Facebook</SignInParagraph>
             </SignInOption>
             <SignInOption>
-              <LinkedInIcon fontSize="large" style={{ color: "#20c997" }} />
+              <LinkedInIcon fontSize="large" style={{ color: "#0A66C2" }} />
               <SignInParagraph>Sign up with LinkedIn</SignInParagraph>
             </SignInOption>
           </SignInOptionContainer>
         </Form>
+        {isEmailSent && (
+          <EmailSentComponent>
+            <EmailSentText>
+              Email sent to your email account to verify
+            </EmailSentText>
+          </EmailSentComponent>
+        )}
       </Wrapper>
-    </>
+    </SignUpContainer>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import HomeIcon from "@mui/icons-material/Home";
 import SearchIcon from "@mui/icons-material/Search";
@@ -6,7 +6,16 @@ import LibraryMusicIcon from "@mui/icons-material/LibraryMusic";
 import AddIcon from "@mui/icons-material/Add";
 import EastIcon from "@mui/icons-material/East";
 import ListIcon from "@mui/icons-material/List";
-
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import DownloadIcon from "@mui/icons-material/Download";
+import { useDispatch, useSelector } from "react-redux";
+import { FETCH_ALL_TRACKS } from "../Redux-toolkit/types/trackType";
+import {
+  setCurrentImageUrl,
+  setCurrentTrackName,
+  setCurrentArtistName,
+} from "../Redux-toolkit/slice/trackSlice";
+import { setPlayingMusic } from "../Redux-toolkit/slice/playingSlice";
 const MainDisplayTopLeftContainer = styled.div`
   flex: 2;
   height: 85vh;
@@ -136,13 +145,14 @@ const BottomThirdSearchInput = styled.input`
 const BottomThirdRight = styled.div`
   flex: 1;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
 `;
 const BottomThirdRightText = styled.h3`
   font-size: 18px;
   cursor: pointer;
-  margin-right: 0px;
+  margin: 0px;
+  margin-right: 10px;
   color: ${(props) =>
     props.isrecentsearchhovered === "true" ? "white" : "#555555"};
 `;
@@ -154,45 +164,70 @@ const BottomFourth = styled.div`
 `;
 const BottomFourthEachItem = styled.div`
   display: flex;
-  padding: 4px 10px;
+  padding: 8px 10px;
   border-radius: 5px;
   cursor: pointer;
+  margin-bottom: 10px;
+  background-color: #333333;
   &:hover {
-    background-color: #333333;
+    background-color: #444444;
   }
 `;
 const ImageContainer = styled.img`
+  flex: 1;
   width: 70px;
   height: 70px;
-  border-radius: 50%;
+  border-radius: 5px;
   margin-right: 15px;
   object-fit: cover;
 `;
 const BottomFourthRight = styled.div`
+  flex: 3;
   diplay: flex;
   flex-direction: column;
-  padding: 5px 0px;
+  padding: 15px 5px;
+  overflow-x: hidden;
 `;
 const BottomFourthRightArtistName = styled.h3`
-  margin: 0;
   color: white;
+  margin: 0px;
+  text-transform: capitalize;
   font-size: 18px;
   font-weight: 500;
+  margin-bottom: 5px;
+  font-family: "Arial", sans-serif;
 `;
 const BottomFourthRightDescription = styled.p`
   margin: 0;
-  color: white;
-  font-size: 15px;
-  font-weight: 300;
+  color: gray;
+  font-size: 18px;
+  font-weight: 700;
+  text-transform: capitalize;
+  font-family: "Arial", sans-serif;
+`;
+const BottomFourthIconContainer = styled.div`
+  flex: 0.5;
+  display: flex;
+  align-items: center;
 `;
 
 const MainDisplayTopLeft = () => {
   console.log("Main display top left");
+  const dispatch = useDispatch();
   const [ishovered, setIsHovered] = useState(false);
   const [issearchhovered, setIsSearchHovered] = useState(false);
   const [isrecentsearchhovered, setIsRecentSearchHovered] = useState(false);
   const [searchiconvisible, setSearchIconVisible] = useState(false);
+
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const imageUrl = PF + "images/";
+
+  useEffect(() => {
+    dispatch({ type: FETCH_ALL_TRACKS });
+  }, []);
+
+  const { allTrack } = useSelector((state) => state.track);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
@@ -328,146 +363,59 @@ const MainDisplayTopLeft = () => {
             </BottomThirdRight>
           </BottomThird>
           <BottomFourth>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}aster.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Aster Aweke
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-2
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}rophnan.jpeg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Rophnan
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-2
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}neway.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Neway Debebe
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-4
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
-            <BottomFourthEachItem>
-              <ImageContainer
-                src={`${PF}tilahun.jpg`}
-                alt="Image not available"
-              />
-              <BottomFourthRight>
-                <BottomFourthRightArtistName>
-                  Tilahun Gessese
-                </BottomFourthRightArtistName>
-                <BottomFourthRightDescription>
-                  Volume-1
-                </BottomFourthRightDescription>
-              </BottomFourthRight>
-            </BottomFourthEachItem>
+            {allTrack?.map((track) => (
+              <BottomFourthEachItem
+                key={track._id}
+                onClick={() => {
+                  dispatch(
+                    setPlayingMusic({
+                      currentPlayingMusic: track.track,
+                      currentTime: 0,
+                    })
+                  );
+                  dispatch(setCurrentImageUrl(track.imageurl));
+                  dispatch(setCurrentTrackName(track.title));
+                  dispatch(setCurrentArtistName(track.artist));
+                }}
+              >
+                <ImageContainer
+                  src={`${imageUrl}${track.imageurl}`}
+                  alt="Image not available"
+                />
+                <BottomFourthRight>
+                  <BottomFourthRightArtistName>
+                    {track.artist}
+                  </BottomFourthRightArtistName>
+                  <BottomFourthRightDescription>
+                    {track.title}
+                  </BottomFourthRightDescription>
+                </BottomFourthRight>
+                <BottomFourthIconContainer>
+                  <FavoriteIcon
+                    style={{
+                      fontSize: "35px",
+                      marginRight: "5px",
+                      color: "#fff",
+                      transition: "color 0.3s",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => (e.target.style.color = "red")}
+                    onMouseLeave={(e) => (e.target.style.color = "#fff")}
+                  />
+                  <DownloadIcon
+                    style={{
+                      fontSize: "35px",
+                      marginRight: "5px",
+                      color: "#fff",
+                      transition: "color 0.3s",
+                      cursor: "pointer",
+                    }}
+                    onMouseEnter={(e) => (e.target.style.color = "#1877F2")}
+                    onMouseLeave={(e) => (e.target.style.color = "#fff")}
+                  />
+                </BottomFourthIconContainer>
+              </BottomFourthEachItem>
+            ))}
           </BottomFourth>
         </MainDisplayTopLeftBottomWrapper>
       </MainDisplayTopLeftBottom>

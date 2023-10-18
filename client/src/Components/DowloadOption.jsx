@@ -19,6 +19,8 @@ const Title = styled.h1`
   margin-bottom: 100px;
   text-align: center;
   position: relative;
+  font-family: "Arial", sans-serif;
+  color: #555555;
 `;
 const ItemMainContainer = styled.div`
   display: flex;
@@ -32,7 +34,7 @@ const ItemContainer = styled.div`
   color: #ffffff;
   &:hover {
     background-color: white;
-    color: black;
+    color: #555555;
     padding: 10px 15px;
     border-radius: 10px;
   }
@@ -49,6 +51,7 @@ const Underline = styled.div`
 `;
 const Description = styled.p`
   font-size: 22px;
+  font-family: "Arial", sans-serif;
 `;
 const DowloadOption = () => {
   return (

@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import UserNavBar from "./UserNavBar";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { GET_SINGLE_ALBUM } from "../Redux-toolkit/types/albumType";
+import SingleMusicMiddleList from "./SingleMusicMiddleList";
 
 const SingleMusicMiddleContainer = styled.div`
   flex: 4;
@@ -41,16 +45,29 @@ const SingleMusicMiddleSecondImage = styled.img`
 const SingleMusicMiddleSecondTextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0px 30px;
 `;
 
 const SingleMusicMiddleSecondText = styled.h1`
   font-size: 60px;
   color: white;
   margin: 0px;
+  font-family: "Arial", sans-serif;
 `;
-const SingleMusicMiddleSecondViewers = styled.p`
+const SingleMusicMiddleSecondTitle = styled.p`
+  margin: 0px;
   color: white;
   font-size: 24px;
+  margin: 10px 30px;
+  font-family: "Arial", sans-serif;
+`;
+const SingleMusicMiddleSecondGeners = styled.p`
+  margin: 0px;
+  color: white;
+  margin: 10px 30px;
+  font-size: 24px;
+  text-transform: capitalize;
+  font-family: "Arial", sans-serif;
 `;
 // styling of bottom container begin
 const SingleMusicMiddleBottomContainer = styled.div`
@@ -86,7 +103,8 @@ const SingleMusicMiddleFollowButton = styled.button`
   border-radius: 30px;
   cursor: pointer;
   background-color: transparent;
-  border: 0.3px solid #20c997;
+  border: 2px solid #20c997;
+  font-family: "Arial", sans-serif;
   &:hover {
     font-size: 24px;
   }
@@ -98,71 +116,25 @@ const SingleMusicMiddleFourth = styled.div`
 `;
 const SingleMusicMiddleFourthTitle = styled.h1`
   color: white;
-`;
-const SingleMusicFourthEachItem = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 0px 15px;
-  border-radius: 10px;
-  position: relative;
-
-  &:hover {
-    background-color: #333333;
-    .play-icon {
-      display: block;
-    }
-
-    .number {
-      display: none;
-    }
-  }
-`;
-const SingleMusicMiddleFourthImage = styled.img`
-  width: 55px;
-  height: 55px;
-  object-fit: cover;
-  margin-right: 15px;
-`;
-const SingleMusicMiddleFourthName = styled.h3`
-  color: white;
-  font-size: 24px;
-  margin-right: 200px;
-`;
-const SingleMusicMiddleFourthViews = styled.h3`
-  color: white;
-  margin-right: 70px;
-`;
-const SingleMusicMiddleFourthLength = styled.h3`
-  color: white;
-`;
-const SingleMusicFourthPlayNumber = styled.div`
-  display: flex;
-  align-items: center;
-  font-size: 45px;
-  margin-right: 15px;
-  color: #20c997;
-  cursor: pointer;
-  transition: font-size 0.2s ease-in-out;
-
-  .play-icon {
-    display: none;
-  }
-
-  &:hover {
-    font-size: 55px;
-
-    .number {
-      display: none;
-    }
-
-    .play-icon {
-      display: block;
-    }
-  }
+  font-family: "Arial", sans-serif;
 `;
 
 const SingleMusicMiddle = () => {
   console.log("single music middle");
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const imageUrl = PF + "images/";
+
+  let trackCounter = 0;
+  const dispatch = useDispatch();
+  const params = useParams();
+  const albumForEdit = params.id;
+
+  useEffect(() => {
+    dispatch({ type: GET_SINGLE_ALBUM, albumForEdit });
+  }, []);
+
+  const { title, artist, genre, albumImageUrl, trackImageUrl, tracks } =
+    useSelector((state) => state.album.album);
 
   return (
     <SingleMusicMiddleContainer>
@@ -171,14 +143,13 @@ const SingleMusicMiddle = () => {
           <UserNavBar />
         </SingleMusicMiddleFirst>
         <SingleMusicMiddleSecond>
-          <SingleMusicMiddleSecondImage />
+          <SingleMusicMiddleSecondImage src={`${imageUrl}${albumImageUrl}`} />
           <SingleMusicMiddleSecondTextContainer>
-            <SingleMusicMiddleSecondText>
-              Artist Name
-            </SingleMusicMiddleSecondText>
-            <SingleMusicMiddleSecondViewers>
-              Album Title
-            </SingleMusicMiddleSecondViewers>
+            <SingleMusicMiddleSecondText>{artist}</SingleMusicMiddleSecondText>
+            <SingleMusicMiddleSecondTitle>{title}</SingleMusicMiddleSecondTitle>
+            <SingleMusicMiddleSecondGeners>
+              {genre}
+            </SingleMusicMiddleSecondGeners>
           </SingleMusicMiddleSecondTextContainer>
         </SingleMusicMiddleSecond>
       </SingleMusicMiddleTopContainer>
@@ -201,18 +172,23 @@ const SingleMusicMiddle = () => {
           />
           <SingleMusicMiddleFollowButton>Follow</SingleMusicMiddleFollowButton>
         </SingleMusicMiddleThird>
-        {/* {Array.isArray(albumTracks) ? (
-          <SingleMusicMiddleFourth>
-            <SingleMusicMiddleFourthTitle>
-              Music List
-            </SingleMusicMiddleFourthTitle>
-            {albumTracks.map((track) => (
-              <SingleMusicMiddleList track={track} key={track} />
-            ))}
-          </SingleMusicMiddleFourth>
-        ) : (
-          <div>Album Tracks is a string, not an array.</div>
-        )} */}
+        <SingleMusicMiddleFourth>
+          <SingleMusicMiddleFourthTitle>
+            Music List
+          </SingleMusicMiddleFourthTitle>
+          {tracks?.map((track) => {
+            trackCounter++;
+            return (
+              <SingleMusicMiddleList
+                track={track}
+                trackUrl={trackImageUrl}
+                key={track}
+                trackCounter={trackCounter}
+                artist={artist}
+              />
+            );
+          })}
+        </SingleMusicMiddleFourth>
       </SingleMusicMiddleBottomContainer>
     </SingleMusicMiddleContainer>
   );

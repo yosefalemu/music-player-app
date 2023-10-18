@@ -1,142 +1,168 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import CloseIcon from "@mui/icons-material/Close";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
+import { GET_ALL_OTHER_USERS } from "../Redux-toolkit/types/userType";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import AddIcon from "@mui/icons-material/Add";
 
 const MainDisplayTopRightContainer = styled.div`
   flex: 1;
-  background-color: yellow;
   width: 100%;
   background-color: #222222;
   height: 85vh;
   margin: 8px 7px;
   border-radius: 10px;
-  padding: 15px 15px;
+  padding: 15px 10px;
 `;
-const MainDisplayTopRightTop = styled.div``;
-const MainDisplayTopRightBottom = styled.div``;
+
 const TopRightFirst = styled.div`
   display: flex;
+  align-items: center;
   justify-content: space-between;
 `;
-const TopRightLink = styled(Link)`
+const TopRightFirstTitle = styled.h1`
   font-size: 24px;
   color: white;
+  font-family: "Arial", sans-serif;
 `;
 const TopRightSecond = styled.div`
   text-align: center;
   margin: 15px 0px;
 `;
-const TopRightSecondImage = styled.img`
-  width: 200px;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 15px;
+const TopRightSecondText = styled.p`
+  color: #fff;
+  font-family: "Arial", sans-serif;
+  font-size: 18px;
+  text-align: left;
 `;
-
 const TopRightThird = styled.div`
-  background-color: #555555;
-  display: flex;
-  align-items: center;
-  padding: 5px 15px;
-  height: fit-content;
-  padding: 30px 20px;
-  border-radius: 10px;
+  height: 45vh;
+  width: 100%;
+  background: #555555;
   margin-bottom: 15px;
+  border-radius: 10px 0px 0px 10px;
+  border: 1px solid #fff;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  scrollbar-color: gray #f1f1f1;
+  &::-webkit-scrollbar {
+    width: 1px;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: gray;
+    border-radius: 5px;
+  }
 `;
-const TopRightThirdLeft = styled.div`
-  flex: 5;
+const TopRightThirdItemContainer = styled.div`
   display: flex;
   flex-direction: column;
-  margin-right: 50px;
+  justify-content: left;
+  padding: 2px 7px;
 `;
-const TopRightThirdLeftName = styled.h1`
-  color: white;
-  margin: 0px;
-`;
-const TopRightThirdLeftMusic = styled.h4`
-  color: white;
-  margin: 0px;
-`;
-const TopRightThirdRight = styled.div`
-  flex: 1;
+const TopRightThirdEachItem = styled.div`
+  width: 90%;
   display: flex;
+  padding: 15px 10px;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  background-color: #333333;
+  border-radius: 5px;
+  &:hover {
+    background-color: #444444;
+    cursor: pointer;
+  }
+`;
+const TopRightThirdImage = styled.img`
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 3px;
+`;
+const TopRightThirdText = styled.p`
+  margin: 0px;
+  font-size: 24px;
+  color: #fff;
 `;
 
 const TopRightFourth = styled.div`
-  background-color: #555555;
   display: flex;
-  flex-direction: column;
-  padding: 5px 15px;
-  height: 17vh;
+  justify-content: center;
+  align-items: center;
+  height: 14vh;
   border-radius: 10px;
   margin-bottom: 15px;
 `;
-const TopRightFourthHeader = styled.h3`
-  color: white;
-  margin: 0px;
-  height: 30%;
-`;
-const TopRightFourthItem = styled.div`
-  width: 100%;
+const TopRightFourthContainer = styled.div`
+  background: #fff;
   display: flex;
   align-items: center;
-  height: 70%;
+  padding: 20px 35px;
+  border-radius: 10px;
+  border: 5px solid #555555;
 `;
-const TopRightFourthItemImage = styled.img`
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 20px;
-`;
-const TopRightFourthDescription = styled.div``;
-const TopRightFourthName = styled.h1`
+const TopRightFourthText = styled.h1`
   margin: 0px;
-  color: white;
-`;
-const TopRightFourthTitle = styled.p`
-  margin: 0px;
-  color: white;
+  font-size: 14px;
+  font-family: "Arial", sans-serif;
+  color: #666666;
 `;
 
 const MainDisplayTopRight = () => {
-  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   console.log("main display top right");
+  const dispatch = useDispatch();
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const imageUrl = PF + "images/";
+  const { allOtherUsers, user } = useSelector((state) => state.user);
+  useEffect(() => {
+    dispatch({ type: GET_ALL_OTHER_USERS, currentUserId: user._id });
+  }, []);
+
   return (
     <MainDisplayTopRightContainer>
-      <MainDisplayTopRightTop>
-        <TopRightFirst>
-          <TopRightLink>Neway Debebe</TopRightLink>
-          <CloseIcon style={{ color: "white", fontSize: "28px" }} />
-        </TopRightFirst>
-        <TopRightSecond>
-          <TopRightSecondImage src={`${PF}neway.jpg`} />
-        </TopRightSecond>
-        <TopRightThird>
-          <TopRightThirdLeft>
-            <TopRightThirdLeftName>Neway Debebe</TopRightThirdLeftName>
-            <TopRightThirdLeftMusic>Ye fkr gedam</TopRightThirdLeftMusic>
-          </TopRightThirdLeft>
-          <TopRightThirdRight>
-            <FavoriteBorderIcon style={{ color: "white", fontSize: "28px" }} />
-            <MoreHorizIcon style={{ color: "white", fontSize: "28px" }} />
-          </TopRightThirdRight>
-        </TopRightThird>
-        <TopRightFourth>
-          <TopRightFourthHeader>Next music</TopRightFourthHeader>
-          <TopRightFourthItem>
-            <TopRightFourthItemImage src={`${PF}rophnan.jpeg`} />
-            <TopRightFourthDescription>
-              <TopRightFourthName>Rophnan</TopRightFourthName>
-              <TopRightFourthTitle>Sekela</TopRightFourthTitle>
-            </TopRightFourthDescription>
-          </TopRightFourthItem>
-        </TopRightFourth>
-      </MainDisplayTopRightTop>
+      <TopRightFirst>
+        <TopRightFirstTitle>Friends activity</TopRightFirstTitle>
+        <CloseIcon style={{ color: "white", fontSize: "28px" }} />
+      </TopRightFirst>
+      <TopRightSecond>
+        <TopRightSecondText>
+          Let friends and followers on addis music
+        </TopRightSecondText>
+      </TopRightSecond>
+      <TopRightThird>
+        {allOtherUsers?.map((user) => (
+          <TopRightThirdItemContainer>
+            <TopRightThirdEachItem>
+              <TopRightThirdImage
+                src={
+                  user.avatar
+                    ? `${imageUrl}${user.avatar}`
+                    : `${imageUrl}defaultProfile.jpg`
+                }
+              />
+              <TopRightThirdText>{user.username}</TopRightThirdText>
+              <AddIcon
+                style={{
+                  fontSize: "40px",
+                  color: "#CCCCCC",
+                  transition: "color 0.3s",
+                  cursor: "pointer",
+                }}
+                onMouseEnter={(e) => (e.target.style.color = "white")}
+                onMouseLeave={(e) => (e.target.style.color = "#CCCCCC")}
+              />
+            </TopRightThirdEachItem>
+          </TopRightThirdItemContainer>
+        ))}
+      </TopRightThird>
+      <TopRightFourth>
+        <TopRightFourthContainer>
+          <TopRightFourthText>Addis Music Player</TopRightFourthText>
+        </TopRightFourthContainer>
+      </TopRightFourth>
     </MainDisplayTopRightContainer>
   );
 };

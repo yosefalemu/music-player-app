@@ -5,6 +5,11 @@ import MainDisplayFooter from "../Components/MainDisplayFooter";
 import MainDisplayTopLeft from "../Components/MainDisplayTopLeft";
 import MainDisplayTopMiddle from "../Components/MainDisplayTopMiddle";
 import MainDisplayTopRight from "../Components/MainDisplayTopRight";
+import UserInfoModal from "../Components/UserInfoModal";
+import AdminModal from "../Components/AdminModal";
+import { closeAdminModal } from "../Redux-toolkit/slice/adminModal";
+import { closeModal } from "../Redux-toolkit/slice/modalSlice";
+import { removeUploadingSingleMusicError } from "../Redux-toolkit/slice/uploadSingleMusicSlice";
 
 const MainDisplayContainer = styled.div`
   z-index: 1;
@@ -29,10 +34,20 @@ const MainDisplayBottom = styled.div`
 
 const MainDisplayPage = () => {
   console.log(" main display page");
+  const dispatch = useDispatch();
+  const { isOpen } = useSelector((state) => state.modal);
+  const { isOpenAdminModal } = useSelector((state) => state.adminModal);
+  useEffect(() => {
+    dispatch(closeAdminModal());
+    dispatch(closeModal());
+    dispatch(removeUploadingSingleMusicError());
+  }, []);
 
   return (
     <MainDisplayContainer>
       <MainDisplayWrapper>
+        {isOpen && <UserInfoModal />}
+        {isOpenAdminModal && <AdminModal />}
         <MainDisplayTop>
           <MainDisplayTopLeft />
           <MainDisplayTopMiddle />

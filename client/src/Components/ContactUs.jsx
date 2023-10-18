@@ -27,6 +27,8 @@ const Header = styled.h1`
   text-align: center;
   margin-bottom: 150px;
   position: relative;
+  font-family: "Arial", sans-serif;
+  color: #555555;
 `;
 const Underline = styled.div`
   width: 150px;
@@ -54,10 +56,13 @@ const LeftColumn = styled.div`
 const LeftColumnTop = styled.div`
   margin-bottom: 15px;
 `;
-const LeftColumnTopTitle = styled.h1``;
+const LeftColumnTopTitle = styled.h1`
+  font-family: "Arial", sans-serif;
+`;
 const LeftColumnTopDescription = styled.p`
   font-size: 18px;
   color: #4c4d4d;
+  font-family: "Arial", sans-serif;
 `;
 const LeftColumnMiddle = styled.div``;
 const LeftColumnMiddleItemContainer = styled.div`
@@ -105,10 +110,12 @@ const IconContainer = styled.div`
 const LeftColumnMiddleDescription = styled.p`
   font-size: 18px;
   color: #4c4d4d;
+  font-family: "Arial", sans-serif;
 `;
 const LeftColumnBottom = styled.div``;
 const LeftColumnBottomTitle = styled.h1`
   margin-bottom: 30px;
+  font-family: "Arial", sans-serif;
 `;
 const LeftColumnBottomContainer = styled.div`
   display: flex;
@@ -125,7 +132,9 @@ const RightColumnRow = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-const RightColumnRowTitle = styled.h1``;
+const RightColumnRowTitle = styled.h1`
+  font-family: "Arial", sans-serif;
+`;
 const RightColumnRowInput = styled.input`
   width: 400px;
   height: 40px;
@@ -184,9 +193,15 @@ const DeveloperLink = styled(Link)`
   align-items: center;
   color: #616161;
 `;
-const CopyRightText = styled.p``;
-const AtContainer = styled.span``;
-const DeveloperName = styled.span``;
+const CopyRightText = styled.p`
+  font-family: "Arial", sans-serif;
+`;
+const AtContainer = styled.span`
+  font-family: "Arial", sans-serif;
+`;
+const DeveloperName = styled.span`
+  font-family: "Arial", sans-serif;
+`;
 
 const ContactOverLay = styled.div`
   background-color: rgba(0, 0, 0, 0.1);

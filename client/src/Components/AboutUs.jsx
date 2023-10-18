@@ -9,7 +9,8 @@ import SelectAllIcon from "@mui/icons-material/SelectAll";
 
 const Container = styled.div`
   position: relative;
-  margin-bottom: 70px;
+  margin-bottom: 180px;
+  padding-bottom: 150px;
 `;
 
 const Wrapper = styled.div`
@@ -24,6 +25,8 @@ const Wrapper = styled.div`
 const Header = styled.h1`
   text-align: center;
   margin-bottom: 150px;
+  color: #555555;
+  font-family: "Arial", sans-serif;
   position: relative;
 `;
 const Underline = styled.div`
@@ -59,13 +62,17 @@ const RowRight = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const DescriptionTitle = styled.div`
+const DescriptionTitle = styled.h1`
   font-size: 22px;
   font-weight: 700;
+  font-family: "Arial", sans-serif;
+  color: #555555;
 `;
 
 const Description = styled.p`
   font-size: 16px;
+  font-family: "Arial", sans-serif;
+  color: #666666;
 `;
 const IconWrapper = styled.div`
   width: 75px;
@@ -89,7 +96,7 @@ const AboutUsOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   z-index: -1;
 `;
 

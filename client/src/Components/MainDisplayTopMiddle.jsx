@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import UserNavBar from "./UserNavBar";
-import PlayCircleIcon from "@mui/icons-material/PlayCircle";
-import PauseCircleIcon from "@mui/icons-material/PauseCircle";
 import { Link } from "react-router-dom";
 import AlbumComponent from "./AlbumComponent";
+import { useDispatch, useSelector } from "react-redux";
+import { FETCH_ALL_ALBUM } from "../Redux-toolkit/types/albumType";
 
 const MainDisplayTopMiddleContainer = styled.div`
   flex: 4;
@@ -47,6 +47,7 @@ const MainDisplayTopMiddleSecond = styled.div`
 `;
 const MainDisplaySecondMainText = styled.h1`
   color: white;
+  font-family: "Arial", sans-serif;
 `;
 const MainDisplayTopMiddleMainInput = styled.input`
   width: 90%;
@@ -74,10 +75,13 @@ const MainDisplayTopMiddleThirdTop = styled.div`
 `;
 const MainDisplayTopMiddleThirdTopText = styled.h1`
   color: white;
+  font-family: "Arial", sans-serif;
 `;
 const MainDisplayTopMiddleThirdTopLink = styled(Link)`
   text-decoration: none;
   color: #666666;
+  font-size: 18px;
+  font-family: "Arial", sans-serif;
   &:hover {
     text-decoration: underline;
     color: white;
@@ -91,6 +95,11 @@ const MainDisplayTopMiddleThirdBottom = styled.div`
 
 const MainDisplayTopMiddle = () => {
   console.log("main display top middle");
+  const dispatch = useDispatch();
+  const { albums } = useSelector((state) => state.album);
+  useEffect(() => {
+    dispatch({ type: FETCH_ALL_ALBUM });
+  }, []);
 
   return (
     <MainDisplayTopMiddleContainer>
@@ -118,9 +127,9 @@ const MainDisplayTopMiddle = () => {
             </MainDisplayTopMiddleThirdTopLink>
           </MainDisplayTopMiddleThirdTop>
           <MainDisplayTopMiddleThirdBottom>
-            {/* {albums?.map((album) => (
+            {albums?.map((album) => (
               <AlbumComponent key={album._id} album={album} />
-            ))} */}
+            ))}
           </MainDisplayTopMiddleThirdBottom>
         </MainDisplayTopMiddleThird>
         {/* forth component start here */}

@@ -1,59 +1,58 @@
 const TrackSchema = require("../models/track");
 const { BadRequestError } = require("../errors");
 
-//create track
+// @desc    Create Track
+// @route   POST /api/v1/track
+// @access  Admin
 const createTrack = async (req, res) => {
-  const { title, artist, imageUrl } = req.body;
-  if (!title || !artist || !imageUrl) {
-    throw new BadRequestError("all fields are required");
+  const { title, artist, imageurl, track } = req.body;
+  if (!title || !artist || !imageurl || !track) {
+    throw new BadRequestError("All fields are required");
   }
-  const track = await TrackSchema.create(req.body);
-  res.status(200).json(track);
-};
-//get track
-const getTrack = async (req, res) => {
-  try {
-    const trackId = req.params.id;
-    const track = await TrackSchema.findById(trackId);
-    if (!track) {
-      throw BadRequestError(`No track with id ${trackId}`);
-    }
-    res.status(200).json(track);
-  } catch (error) {
-    console.log(error);
-  }
+  const trackCreated = await TrackSchema.create(req.body);
+  res.status(200).json(trackCreated);
 };
 
-//get all tracks
+// @desc   Get Single Track
+// @route   GET /api/v1/track/:id
+// @access  Public
+const getTrack = async (req, res) => {
+  const trackId = req.params.id;
+  const track = await TrackSchema.findById(trackId);
+  if (!track) {
+    throw new BadRequestError(`No track with id ${trackId}`);
+  }
+  res.status(200).json(track);
+};
+
+// @desc    Get All Track
+// @route   GET /api/v1/track
+// @access  Public
 const getAllTracks = async (req, res) => {
   const tracks = await TrackSchema.find({});
   res.status(200).json(tracks);
 };
-//update track
+
+// @desc    Update Single Track
+// @route   PATCH /api/v1/track/:id
+// @access  Admin
 const updateTrack = async (req, res) => {
   const trackId = req.params.id;
-  try {
-    const updatedTrack = await TrackSchema.findByIdAndUpdate(
-      trackId,
-      req.body,
-      {
-        runValidators: true,
-        new: true,
-      }
+  const updatedTrack = await TrackSchema.findByIdAndUpdate(trackId, req.body, {
+    runValidators: true,
+    new: true,
+  });
+  if (!updatedTrack) {
+    throw new BadRequestError(
+      `There is no track with id ${trackId} to be updated`
     );
-    if (!updatedTrack) {
-      throw new BadRequestError(
-        `There is no track with id ${trackId} to be updated`
-      );
-    }
-    res.status(200).json(updatedTrack);
-  } catch (error) {
-    console.error("Error updating track:", error);
-    res.status(500).json({ error: "Internal Server Error" });
   }
+  res.status(200).json(updatedTrack);
 };
 
-//delete track
+// @desc    Delete Single Track
+// @route   DELETE /api/v1/track/:id
+// @access  Admin
 const deleteTrack = async (req, res) => {
   const trackId = req.params.id;
   const deletedTrack = await TrackSchema.findByIdAndDelete(trackId);
@@ -64,6 +63,7 @@ const deleteTrack = async (req, res) => {
   }
   res.status(200).json(deletedTrack);
 };
+
 module.exports = {
   createTrack,
   getTrack,

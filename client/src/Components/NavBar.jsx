@@ -33,6 +33,7 @@ const CompanyName = styled.span`
   cursor: pointer;
   font-weight: normal;
   color: #ffffff;
+  font-family: "Arial", sans-serif;
 `;
 const AuthenticationContainer = styled(Link)`
   width: fit-content;
@@ -53,6 +54,7 @@ const AuthenticationContainer = styled(Link)`
 const AuthenticationText = styled.div`
   font-size: 18px;
   cursor: pointer;
+  font-family: "Arial", sans-serif;
 `;
 
 const NavBar = () => {

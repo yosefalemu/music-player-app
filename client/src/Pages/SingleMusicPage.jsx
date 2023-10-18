@@ -4,6 +4,9 @@ import MainDisplayFooter from "../Components/MainDisplayFooter";
 import MainDisplayTopLeft from "../Components/MainDisplayTopLeft";
 import SingleMusicMiddle from "../Components/SingleMusicMiddle";
 import MainDisplayTopRight from "../Components/MainDisplayTopRight";
+import UserInfoModal from "../Components/UserInfoModal";
+import { useSelector } from "react-redux";
+import AdminModal from "../Components/AdminModal";
 
 const MainDisplayContainer = styled.div`
   z-index: 1;
@@ -27,9 +30,13 @@ const MainDisplayBottom = styled.div`
 `;
 const SingleMusicPage = () => {
   console.log("single music page");
+  const { isOpen } = useSelector((state) => state.modal);
+  const { isOpenAdminModal } = useSelector((state) => state.adminModal);
   return (
     <MainDisplayContainer>
       <MainDisplayWrapper>
+        {isOpen && <UserInfoModal />}
+        {isOpenAdminModal && <AdminModal />}
         <MainDisplayTop>
           <MainDisplayTopLeft />
           <SingleMusicMiddle />

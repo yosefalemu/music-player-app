@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
+import { useNavigate } from "react-router-dom";
 
 const MainDisplayThirdBottomEachItem = styled.div`
   width: 30.6%;
   display: flex;
   flex-direction: column;
   background-color: #333333;
+  padding-bottom: 5px;
   margin: 10px;
   align-items: center;
   border-radius: 10px;
@@ -30,21 +32,25 @@ const MainDisplayThirdBottomImage = styled.img`
   width: 170px;
   height: 170px;
   border-radius: 10px;
+  object-fit: cover;
 `;
 const MainDisplayThirdBottomTextContainer = styled.div`
-  width: 100%;
+  width: calc(100% - 50px);
   text-align: left;
+  padding: 5px 25px;
 `;
 const MainDisplayThirdBottomAlbumName = styled.h1`
   color: white;
-  font-size: 22px;
-  margin: 10px;
-  text-align: left;
+  font-size: 32px;
+  margin: 0px;
+  font-family: "Arial", sans-serif;
+  margin-bottom: 5px;
 `;
 const MainDisplayThirdBottomArtistName = styled.p`
   color: whitesmoke;
   margin: 0px;
-  margin: 10px;
+  font-size: 22px;
+  font-family: "Arial", sans-serif;
 `;
 const MainDisplayThirdBottomPlayIcon = styled.div`
   position: absolute;
@@ -52,16 +58,23 @@ const MainDisplayThirdBottomPlayIcon = styled.div`
   right: 10%;
 `;
 
-const AlbumContainer = () => {
+const AlbumContainer = ({ album }) => {
+  console.log("album component");
+  const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+  const imageUrl = PF + "images/";
+  const navigate = useNavigate();
+  const handleAlbumClick = (id) => {
+    navigate(`/singlemusic/${id}`);
+  };
   return (
-    <MainDisplayThirdBottomEachItem>
-      <MainDisplayThirdBottomImage  />
+    <MainDisplayThirdBottomEachItem onClick={() => handleAlbumClick(album._id)}>
+      <MainDisplayThirdBottomImage src={`${imageUrl}${album.albumImageUrl}`} />
       <MainDisplayThirdBottomTextContainer>
         <MainDisplayThirdBottomAlbumName>
-          Title
+          {album.title}
         </MainDisplayThirdBottomAlbumName>
         <MainDisplayThirdBottomArtistName>
-         Artist Name
+          {album.artist}
         </MainDisplayThirdBottomArtistName>
       </MainDisplayThirdBottomTextContainer>
       <MainDisplayThirdBottomPlayIcon>

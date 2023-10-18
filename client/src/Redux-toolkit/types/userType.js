@@ -1,0 +1,4 @@
+export const CREATE_USER_START = "CREATE_USER";
+export const LOGIN_USER_START = "LOGIN_USER";
+export const VERIFY_EMAIL = "VERIFY_EMAIL";
+export const GET_ALL_OTHER_USERS = "GET_ALL_OTHER_USERS";
