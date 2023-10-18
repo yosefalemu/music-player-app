@@ -30,7 +30,9 @@ app.use("/api/v1/uploadalbumimage", uploadAlbumImageRouter);
 
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleware);
-
+app.get('/',(req,res)=>{
+  res.send('sasdfghjhk')
+})
 const port = process.env.PORT || 3001;
 const start = async () => {
   await connectDB(process.env.MONGO_ATLAT_URL);
