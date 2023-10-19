@@ -1,7 +1,7 @@
 import axios from "axios";
 
 axios.defaults.baseURL = `${process.env.BASE_URL}api/v1`;
-
+console.log(`${process.env.BASE_URL}api/v1`);
 export const createUserAPI = async (user) => axios.post("/user/register", user);
 
 export const loginUserAPI = async (userInfo) =>
