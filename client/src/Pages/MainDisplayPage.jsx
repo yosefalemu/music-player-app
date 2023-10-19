@@ -42,6 +42,7 @@ const MainDisplayPage = () => {
     dispatch(closeModal());
     dispatch(removeUploadingSingleMusicError());
   }, [dispatch]);
+  console.log(process.env.BASE_URL);
 
   return (
     <MainDisplayContainer>
