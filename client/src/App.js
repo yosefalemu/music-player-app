@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import axios from "axios";
 
 function App() {
-  axios.defaults.baseURL = `${process.env.REACT_BASE_URL}api/v1`;
+  axios.defaults.baseURL = `${process.env.REACT_APP_BASE_URL}api/v1`;
 console.log(`${process.env.REACT_BASE_URL}`);
 
   return (
