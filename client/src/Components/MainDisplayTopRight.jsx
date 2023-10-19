@@ -119,7 +119,7 @@ const MainDisplayTopRight = () => {
   const { allOtherUsers, user } = useSelector((state) => state.user);
   useEffect(() => {
     dispatch({ type: GET_ALL_OTHER_USERS, currentUserId: user._id });
-  }, []);
+  }, [dispatch, user._id]);
 
   return (
     <MainDisplayTopRightContainer>

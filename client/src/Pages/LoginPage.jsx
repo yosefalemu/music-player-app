@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { keyframes, createGlobalStyle } from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LOGIN_USER_START } from "../Redux-toolkit/types/userType";
@@ -135,7 +135,7 @@ const Login = () => {
   useEffect(() => {
     dispatch(removeUserError());
     setSubmitClicked(false);
-  }, []);
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   margin: 0px auto;
   display: flex;
   flex-direction: column;
-  padding-top: 150px;
+  padding: 100px 0px;
   position: relative;
 `;
 
@@ -189,6 +189,7 @@ const CopyRightContainer = styled.div`
   justify-content: center;
 `;
 const DeveloperLink = styled(Link)`
+  margin-top: 100px;
   display: flex;
   align-items: center;
   color: #616161;
@@ -213,7 +214,7 @@ const ContactOverLay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 117vh;
+  height: 135vh;
   z-index: -1;
 `;
 const ContactUs = () => {

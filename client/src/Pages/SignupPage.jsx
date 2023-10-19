@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { keyframes } from "styled-components";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
@@ -167,7 +166,6 @@ const EmailSentText = styled.p`
 `;
 
 const SignUpPage = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   console.log("sign up page");
   const [name, setName] = useState("");
@@ -180,7 +178,7 @@ const SignUpPage = () => {
   useEffect(() => {
     dispatch(removeUserError());
     dispatch(removeUploadError());
-  }, []);
+  }, [dispatch]);
 
   const { loadingUser, errorUser } = useSelector((state) => state.user);
   const { loadingUploadingImage, errorImage, image } = useSelector(

@@ -41,7 +41,7 @@ const MainDisplayPage = () => {
     dispatch(closeAdminModal());
     dispatch(closeModal());
     dispatch(removeUploadingSingleMusicError());
-  }, []);
+  }, [dispatch]);
 
   return (
     <MainDisplayContainer>

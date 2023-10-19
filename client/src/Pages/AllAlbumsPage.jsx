@@ -151,7 +151,7 @@ const AllAlbumsPage = () => {
     dispatch({ type: FETCH_ALL_ALBUM });
     dispatch(closeEditAlbumModal());
     dispatch(closeDeleteAlbumModal());
-  }, []);
+  }, [dispatch]);
 
   const { albums } = useSelector((state) => state.album);
   const { editAlbumModalOpen } = useSelector((state) => state.editAlbumModal);

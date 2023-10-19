@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import UserNavBar from "./UserNavBar";
 import PauseCircleIcon from "@mui/icons-material/PauseCircle";
@@ -131,7 +131,7 @@ const SingleMusicMiddle = () => {
 
   useEffect(() => {
     dispatch({ type: GET_SINGLE_ALBUM, albumForEdit });
-  }, []);
+  }, [albumForEdit, dispatch]);
 
   const { title, artist, genre, albumImageUrl, trackImageUrl, tracks } =
     useSelector((state) => state.album.album);

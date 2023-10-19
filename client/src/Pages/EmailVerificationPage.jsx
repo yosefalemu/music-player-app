@@ -66,7 +66,7 @@ const EmailVerificationPage = () => {
 
   useEffect(() => {
     dispatch(removeUserError());
-  }, []);
+  }, [dispatch]);
 
   const { loading, error } = useSelector((state) => state.user);
 

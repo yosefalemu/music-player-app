@@ -27,9 +27,9 @@ app.use("/api/v1/upload", uploadRouter);
 app.use("/api/v1/uploadsinglemusic", uploadSingleMusicRouter);
 app.use("/api/v1/multiplemusicupload", uploadMultipleMusiceRouter);
 app.use("/api/v1/uploadalbumimage", uploadAlbumImageRouter);
-app.get('/',(req,res)=>{
-  res.send('sasdfghjhk')
-})
+app.get("/", (req, res) => {
+  res.send("welcome");
+});
 app.use(notFoundMiddleWare);
 app.use(errorHandlerMiddleware);
 

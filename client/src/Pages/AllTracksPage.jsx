@@ -162,7 +162,7 @@ const AllTracksPage = () => {
     dispatch({ type: FETCH_ALL_TRACKS });
     dispatch(closeEditModal());
     dispatch(closeDeleteModal());
-  }, []);
+  }, [dispatch]);
 
   const { allTrack } = useSelector((state) => state.track);
   const { editModalOpen } = useSelector((state) => state.editModal);

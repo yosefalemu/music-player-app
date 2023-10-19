@@ -17,16 +17,7 @@ import playingMusicReducer from "./slice/playingSlice";
 import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./saga/indexSaga";
 
-import {
-  persistStore,
-  persistReducer,
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-} from "redux-persist";
+import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 const persistConfig = {

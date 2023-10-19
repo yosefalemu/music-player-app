@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import UserNavBar from "./UserNavBar";
 import { Link } from "react-router-dom";
@@ -99,7 +99,7 @@ const MainDisplayTopMiddle = () => {
   const { albums } = useSelector((state) => state.album);
   useEffect(() => {
     dispatch({ type: FETCH_ALL_ALBUM });
-  }, []);
+  }, [dispatch]);
 
   return (
     <MainDisplayTopMiddleContainer>

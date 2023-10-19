@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = `${process.env.BASE_URL}api/v1`;
+axios.defaults.baseURL = "http://localhost:5000/api/v1";
 
 export const getAllAlbumsAPI = async () => axios.get("/album");
 export const getSingleAlbum = async (id) => axios.get(`/album/${id}`);

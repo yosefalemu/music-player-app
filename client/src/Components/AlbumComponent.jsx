@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "styled-components";
 import PlayCircleIcon from "@mui/icons-material/PlayCircle";
 import { useNavigate } from "react-router-dom";

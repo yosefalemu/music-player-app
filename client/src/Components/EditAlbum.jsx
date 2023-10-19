@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { closeEditModal } from "../Redux-toolkit/slice/editModal";
 import { useSelector, useDispatch } from "react-redux";
 import { GET_SINGLE_ALBUM } from "../Redux-toolkit/types/albumType";
-import { UPLOAD_SINGLE_MUSIC_START } from "../Redux-toolkit/types/uploadSingleMusic";
 import { UPLOAD_IMAGE_START } from "../Redux-toolkit/types/uploadType";
 import { UPLOAD_ALBUM_IMAGE_START } from "../Redux-toolkit/types/uploadAlbumImageType";
 import ClipLoader from "react-spinners/ClipLoader";
-import { removeUploadingSingleMusicError } from "../Redux-toolkit/slice/uploadSingleMusicSlice";
 import {
   removeUploadError,
   setUploadIntially,
 } from "../Redux-toolkit/slice/uploadSlice";
-import { removeCreateSingleTrackError } from "../Redux-toolkit/slice/trackSlice";
 import { closeEditAlbumModal } from "../Redux-toolkit/slice/editAlbumModal";
 import { Howl } from "howler";
 import { UPLOAD_MULTIPLE_MUSIC_START } from "../Redux-toolkit/types/uploadMultipleMusicType";

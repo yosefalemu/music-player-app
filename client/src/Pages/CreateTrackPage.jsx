@@ -173,7 +173,7 @@ const CreateTrackPage = () => {
     dispatch(removeUploadingSingleMusicError());
     dispatch(removeUploadError());
     dispatch(removeCreateSingleTrackError());
-  }, []);
+  }, [dispatch]);
 
   const { singleMusic, loadingSingleTrackUpload, errorUploadingSingleTrack } =
     useSelector((state) => state.uploadSingleMusic);

@@ -225,7 +225,7 @@ const MainDisplayTopLeft = () => {
 
   useEffect(() => {
     dispatch({ type: FETCH_ALL_TRACKS });
-  }, []);
+  }, [dispatch]);
 
   const { allTrack } = useSelector((state) => state.track);
 
