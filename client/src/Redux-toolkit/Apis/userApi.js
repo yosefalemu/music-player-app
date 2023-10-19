@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-console.log(`${process.env.REACT_BASE_URL}/api/v1`);
+console.log(`${process.env.REACT_APP_BASE_URL}/api/v1`);
 export const createUserAPI = async (user) => axios.post("/user/register", user);
 
 export const loginUserAPI = async (userInfo) =>
