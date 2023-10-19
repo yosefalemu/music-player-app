@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = `${process.env.BASE_URL}api/v1`;
+
 
 export const uploadSingleMusicAPI = async (music) => {
   const formData = new FormData();

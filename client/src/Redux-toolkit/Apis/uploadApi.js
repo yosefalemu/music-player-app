@@ -1,6 +1,5 @@
 import axios from "axios";
 
-axios.defaults.baseURL = `${process.env.BASE_URL}api/v1`;
 
 export const uploadImageAPI = async (image) => {
   const formData = new FormData();

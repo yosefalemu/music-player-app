@@ -10,7 +10,12 @@ import CreateTrackPage from "./Pages/CreateTrackPage";
 import CreateAlbumPage from "./Pages/CreateAlbumPage";
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import axios from "axios";
+
 function App() {
+  axios.defaults.baseURL = `${process.env.REACT_BASE_URL}api/v1`;
+console.log(`${process.env.REACT_BASE_URL}`);
+
   return (
     <Router>
       <Routes>

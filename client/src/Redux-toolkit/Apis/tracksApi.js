@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = `${process.env.BASE_URL}api/v1`;
+
 
 export const getAllTracksAPI = async () => axios.get("/track");
 export const getSingleTrackAPI = async (id) => axios.get(`/track/${id}`);
