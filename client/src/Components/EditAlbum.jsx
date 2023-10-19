@@ -137,7 +137,7 @@ const EditAlbumModal = () => {
     dispatch(removeUploadError());
     dispatch(removeAlbumImageUploadError());
     dispatch(removeAlbumUpdateError());
-  }, [albumForEdit]);
+  }, [albumForEdit, dispatch]);
 
   const { loadingUploadingImage, errorImage, image } = useSelector(
     (state) => state.upload

@@ -25,7 +25,7 @@ const createUser = async (req, res) => {
     const token = user.createJWT();
     user.token = token;
     await user.save();
-    const verificationLink = `http://localhost:3000/${user._id}/verifyemail/${token}`;
+    const verificationLink = `${process.env.FRONTEND_URL}${user._id}/verifyemail/${token}`;
     await sendEmail(user.email, "Verify Email", verificationLink);
     res.status(201).json({
       _id: user._id,
