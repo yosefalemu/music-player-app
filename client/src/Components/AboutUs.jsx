@@ -9,11 +9,10 @@ import SelectAllIcon from "@mui/icons-material/SelectAll";
 
 const Container = styled.div`
   position: relative;
-  padding-bottom: 150px;
+  height: calc(100vh + 100px);
 `;
 
 const Wrapper = styled.div`
-  width: 100%;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
@@ -95,7 +94,7 @@ const AboutUsOverlay = styled.div`
   top: 0;
   left: 0;
   width: 100%;
-  height: 123vh;
+  height: 100vh;
   z-index: -1;
 `;
 

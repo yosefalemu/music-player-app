@@ -1,20 +1,11 @@
 import React, { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { LOGIN_USER_START } from "../Redux-toolkit/types/userType";
 import { useSelector } from "react-redux";
 import ClipLoader from "react-spinners/ClipLoader";
 import { removeUserError } from "../Redux-toolkit/slice/userSlice";
-
-const jump = keyframes`
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-3px);
-  }
-`;
 
 const LogInContainer = styled.div`
   background: #111111;
@@ -82,8 +73,9 @@ const Button = styled.button`
 
   &:hover {
     opacity: 0.9;
+    font-size: 24px;
     background-color: #555555;
-    animation: ${jump} 0.2s ease-out forwards;
+    transform: scale(0.8);
   }
 `;
 
@@ -95,9 +87,9 @@ const ForgotPasswordLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   text-align: center;
-
+  transition: all 0.3s ease-out;
   &:hover {
-    animation: ${jump} 0.2s ease-out forwards;
+    transform: scale(0.8);
   }
 `;
 
@@ -109,9 +101,9 @@ const RegisterLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
   text-align: right;
-
+  transition: all 0.3s ease-out;
   &:hover {
-    animation: ${jump} 0.2s ease-out forwards;
+    transform: scale(0.8);
   }
 `;
 const ErrorComponent = styled.div`

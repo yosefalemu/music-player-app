@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GoogleIcon from "@mui/icons-material/Google";
@@ -10,18 +10,6 @@ import { CREATE_USER_START } from "../Redux-toolkit/types/userType";
 import ClipLoader from "react-spinners/ClipLoader";
 import { removeUserError } from "../Redux-toolkit/slice/userSlice";
 import { removeUploadError } from "../Redux-toolkit/slice/uploadSlice";
-
-const jump = keyframes`
-0%, 20%, 50%, 80%, 100% {
-  transform: translateY(0);
-}
-40% {
-  transform: translateY(-15px);
-}
-60% {
-  transform: translateY(-10px);
-}
-`;
 
 const SignUpContainer = styled.div`
   background: #111111;
@@ -98,7 +86,8 @@ const Button = styled.button`
   &:hover {
     opacity: 0.9;
     background-color: #555555;
-    animation: ${jump} 0.2s ease-out forwards;
+    font-size: 24px;
+    transform: scale(0.8);
   }
 `;
 
@@ -111,7 +100,7 @@ const LoginLink = styled(Link)`
   cursor: pointer;
   text-align: center;
   &:hover {
-    animation: ${jump} 0.2s ease-out forwards;
+    transform: scale(0.8);
   }
 `;
 
@@ -132,7 +121,7 @@ const SignInOption = styled.div`
   transition: all 0.5s ease-out;
   &:hover {
     border: 2px solid white;
-    animation: ${jump} 0.2s ease-out forwards;
+    transform: scale(0.8);
   }
 `;
 

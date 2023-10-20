@@ -12,14 +12,15 @@ import GoogleIcon from "@mui/icons-material/Google";
 
 const Container = styled.div`
   position: relative;
+  height: calc(100vh + 80px);
 `;
 
 const Wrapper = styled.div`
   width: 100%;
+  padding: 30px 0px;
   margin: 0px auto;
   display: flex;
   flex-direction: column;
-  padding: 100px 0px;
   position: relative;
 `;
 
@@ -189,7 +190,7 @@ const CopyRightContainer = styled.div`
   justify-content: center;
 `;
 const DeveloperLink = styled(Link)`
-  margin-top: 100px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   color: #616161;
@@ -210,11 +211,11 @@ const ContactOverLay = styled.div`
   color: white;
   font-size: 150px;
   text-align: center;
-  padding-top: 100px;
+  padding: 45px 0px;
   top: 0;
   left: 0;
   width: 100%;
-  height: 135vh;
+  height: 100vh;
   z-index: -1;
 `;
 const ContactUs = () => {

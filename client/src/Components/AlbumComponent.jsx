@@ -60,11 +60,8 @@ const MainDisplayThirdBottomPlayIcon = styled.div`
 
 const AlbumContainer = ({ album }) => {
   console.log("album component");
-  console.log(album);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const imageUrl = PF + "images/";
-  console.log(imageUrl);
-  console.log(`${imageUrl}${album.albumImageUrl}`);
   const navigate = useNavigate();
   const handleAlbumClick = (id) => {
     navigate(`/singlemusic/${id}`);

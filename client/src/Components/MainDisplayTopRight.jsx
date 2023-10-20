@@ -42,7 +42,7 @@ const TopRightThird = styled.div`
   background: #555555;
   margin-bottom: 15px;
   border-radius: 10px 0px 0px 10px;
-  border: 1px solid #fff;
+  border: 3px solid #444444;
   overflow-y: scroll;
   scrollbar-width: thin;
   scrollbar-color: gray #f1f1f1;
@@ -68,7 +68,7 @@ const TopRightThirdEachItem = styled.div`
   display: flex;
   padding: 15px 10px;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: #333333;
   border-radius: 5px;
   &:hover {
@@ -76,16 +76,25 @@ const TopRightThirdEachItem = styled.div`
     cursor: pointer;
   }
 `;
+const TopRightThirdLeft = styled.div`
+  flex: 3;
+  display: flex;
+  align-items: center;
+`;
 const TopRightThirdImage = styled.img`
   width: 50px;
   height: 50px;
+  margin-right: 8px;
   object-fit: cover;
   border-radius: 3px;
 `;
 const TopRightThirdText = styled.p`
   margin: 0px;
-  font-size: 24px;
+  font-size: 22px;
   color: #fff;
+`;
+const TopRightThirdRight = styled.div`
+  flex: 1;
 `;
 
 const TopRightFourth = styled.div`
@@ -136,24 +145,28 @@ const MainDisplayTopRight = () => {
         {allOtherUsers?.map((user) => (
           <TopRightThirdItemContainer>
             <TopRightThirdEachItem>
-              <TopRightThirdImage
-                src={
-                  user.avatar
-                    ? `${imageUrl}${user.avatar}`
-                    : `${imageUrl}defaultProfile.jpg`
-                }
-              />
-              <TopRightThirdText>{user.username}</TopRightThirdText>
-              <AddIcon
-                style={{
-                  fontSize: "40px",
-                  color: "#CCCCCC",
-                  transition: "color 0.3s",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => (e.target.style.color = "white")}
-                onMouseLeave={(e) => (e.target.style.color = "#CCCCCC")}
-              />
+              <TopRightThirdLeft>
+                <TopRightThirdImage
+                  src={
+                    user.avatar
+                      ? `${imageUrl}${user.avatar}`
+                      : `${imageUrl}defaultProfile.jpg`
+                  }
+                />
+                <TopRightThirdText>{user.username}</TopRightThirdText>
+              </TopRightThirdLeft>
+              <TopRightThirdRight>
+                <AddIcon
+                  style={{
+                    fontSize: "40px",
+                    color: "#CCCCCC",
+                    transition: "color 0.3s",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={(e) => (e.target.style.color = "white")}
+                  onMouseLeave={(e) => (e.target.style.color = "#CCCCCC")}
+                />
+              </TopRightThirdRight>
             </TopRightThirdEachItem>
           </TopRightThirdItemContainer>
         ))}

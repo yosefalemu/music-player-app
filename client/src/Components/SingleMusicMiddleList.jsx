@@ -18,7 +18,7 @@ const SingleMusicFourthEachItem = styled.div`
   padding: 0px 15px;
   border-radius: 10px;
   position: relative;
-
+  cursor: pointer;
   &:hover {
     background-color: #333333;
     .play-icon {
