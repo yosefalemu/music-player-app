@@ -314,7 +314,14 @@ const CreateTrackPage = () => {
             />
           </CreateTrackEachInputItem>
         </CreateTrackInputContainer>
-        <TrackCreateButtonContainer onClick={handleCreateTrack}>
+        <TrackCreateButtonContainer
+          onClick={handleCreateTrack}
+          disabled={
+            loadingSingleTrackUpload ||
+            loadingUploadingImage ||
+            loadingSingleTrack
+          }
+        >
           <TrackCreateButton>Create</TrackCreateButton>
         </TrackCreateButtonContainer>
       </CreateTrackWrapper>
