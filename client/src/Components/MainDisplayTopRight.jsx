@@ -7,8 +7,7 @@ import { useDispatch } from "react-redux";
 import AddIcon from "@mui/icons-material/Add";
 
 const MainDisplayTopRightContainer = styled.div`
-  flex: 1;
-  width: 100%;
+  width: 25vw;
   background-color: #222222;
   height: 85vh;
   margin: 8px 7px;

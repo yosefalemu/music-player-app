@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { FETCH_ALL_ALBUM } from "../Redux-toolkit/types/albumType";
 
 const MainDisplayTopMiddleContainer = styled.div`
-  flex: 4;
-  width: 100%;
+  width: 50vw;
   background-color: #222222;
   height: 85vh;
   margin: 8px 7px;
@@ -16,7 +15,6 @@ const MainDisplayTopMiddleContainer = styled.div`
   position: relative;
 `;
 const MainDisplatTopMiddleFirst = styled.div`
-  width: 100%;
   position: sticky;
   top: 0;
   left: 0;

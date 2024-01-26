@@ -17,7 +17,7 @@ import {
 } from "../Redux-toolkit/slice/trackSlice";
 import { setPlayingMusic } from "../Redux-toolkit/slice/playingSlice";
 const MainDisplayTopLeftContainer = styled.div`
-  flex: 2;
+  width: 25vw;
   height: 85vh;
   margin: 8px 7px;
   border-radius: 10px;
